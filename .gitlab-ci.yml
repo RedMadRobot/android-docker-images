@@ -1,0 +1,125 @@
+stages:
+  - first
+  - second
+  - third
+
+.build:
+  image:
+    name: gcr.io/kaniko-project/executor:v1.9.1-debug
+    entrypoint: [ "" ]
+  before_script:
+    - echo "{\"auths\":{
+        \"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}
+      }" > /kaniko/.docker/config.json
+  only:
+    - master
+    - web
+  tags:
+    - android
+
+## Stage: first
+
+android-sdk:base:
+  extends: .build
+  stage: first
+  when: manual
+  variables:
+    IMAGE: ${CI_REGISTRY_IMAGE}/android-sdk:base
+    # Look for SDK Build Tools version here: https://developer.android.com/studio/releases/gradle-plugin#compatibility
+    BUILD_TOOLS: 30.0.3
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/android-sdk"
+      --dockerfile "$CI_PROJECT_DIR/android-sdk/Dockerfile"
+      --build-arg "build_tools=$BUILD_TOOLS"
+      --destination "$IMAGE"
+
+ruby:
+  extends: .build
+  stage: first
+  when: manual
+  variables:
+    IMAGE: ${CI_REGISTRY_IMAGE}/ruby
+  parallel:
+    matrix:
+      - RUBY: [ '2.7', '3.0' ]
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/ruby"
+      --dockerfile "$CI_PROJECT_DIR/ruby/Dockerfile"
+      --build-arg "version=$RUBY"
+      --destination "$IMAGE:$RUBY"
+
+danger-kotlin:
+  extends: .build
+  stage: first
+  when: manual
+  allow_failure: false
+  variables:
+    IMAGE: ${CI_REGISTRY_IMAGE}/danger-kotlin
+  parallel:
+    matrix:
+      - VERSION: [ 1.0.0, 1.1.0 ]
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/danger-kotlin"
+      --dockerfile "$CI_PROJECT_DIR/danger-kotlin/Dockerfile"
+      --build-arg "version=$VERSION"
+      --destination "$IMAGE:$VERSION"
+
+## Stage: second
+
+.android-sdk:
+  extends: .build
+  variables:
+    IMAGE_PATH: ${CI_REGISTRY_IMAGE}
+    IMAGE: ${CI_REGISTRY_IMAGE}/android-sdk
+  parallel:
+    matrix:
+      - SDK: [ 30, 31, 32, 33 ]
+
+android-sdk:
+  extends: .android-sdk
+  stage: second
+  needs:
+    - android-sdk:base
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/android-sdk/sdk"
+      --dockerfile "$CI_PROJECT_DIR/android-sdk/sdk/Dockerfile"
+      --build-arg "image_path=$IMAGE_PATH"
+      --build-arg "sdk=$SDK"
+      --destination "$IMAGE:$SDK"
+
+## Stage: third
+
+android-sdk:ndk:
+  extends: .android-sdk
+  stage: third
+  needs:
+    - android-sdk
+  variables:
+    NDK: 25.1.8937393
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/android-sdk/ndk"
+      --dockerfile "$CI_PROJECT_DIR/android-sdk/ndk/Dockerfile"
+      --build-arg "image_path=$IMAGE_PATH"
+      --build-arg "sdk=$SDK"
+      --build-arg "ndk=$NDK"
+      --destination "$IMAGE:$SDK-ndk"
+      --destination "$IMAGE:$SDK-ndk-$NDK"
+
+android-emu:
+  extends: .build
+  stage: third
+  when: manual
+  variables:
+    API_VERSION: 30
+    IMAGE: ${CI_REGISTRY_IMAGE}/android-emu
+  script:
+    - /kaniko/executor
+      --context "$CI_PROJECT_DIR/android-emu"
+      --dockerfile "$CI_PROJECT_DIR/android-emu/Dockerfile"
+      --build-arg "api_version=$API_VERSION"
+      --destination "$IMAGE:$API_VERSION"

@@ -1,0 +1,20 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="android-sdk:x" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+    <deployment type="dockerfile">
+      <settings>
+        <option name="imageTag" value="android-sdk:x" />
+        <option name="buildArgs">
+          <list>
+            <DockerEnvVarImpl>
+              <option name="name" value="sdk" />
+              <option name="value" value="33" />
+            </DockerEnvVarImpl>
+          </list>
+        </option>
+        <option name="buildOnly" value="true" />
+        <option name="sourceFilePath" value="android-sdk/sdk/Dockerfile" />
+      </settings>
+    </deployment>
+    <method v="2" />
+  </configuration>
+</component>
