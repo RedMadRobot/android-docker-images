@@ -56,17 +56,6 @@ Where `[x]` is SDK version and `[y]` is NDK version (optionally).
 
 </details>
 
-## android-emu:[x]
-
-> `ghcr.io/redmadrobot/android/android-emu:30`
-
-:warning: Experimental image to run android emulator on CI.
-
-**Base image**: `android-sdk:30`
-
-To start emulator, you should run script `/start_emulator.sh`.
-Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).
-
 ## ruby:[x]
 
 > `ghcr.io/redmadrobot/android/ruby:3.0` \
@@ -80,7 +69,20 @@ Ruby image with some additions to work with Fastlane and Danger.
 - Bundler
 - Firebase CLI
 
-## danger-kotlin:[x]
+## Experimental images
+
+> :warning: Use these images at your own risk.
+
+### android-emu:[x]
+
+> `ghcr.io/redmadrobot/android/android-emu:30`
+
+**Base image**: `android-sdk:30`
+
+To start emulator, you should run script `/start_emulator.sh`.
+Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).
+
+### danger-kotlin:[x]
 
 > `ghcr.io/redmadrobot/android/danger-kotlin:1.0.0` \
 > `ghcr.io/redmadrobot/android/danger-kotlin:1.1.0`
@@ -96,8 +98,7 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 [MIT](LICENSE)
 
+<!-- @formatter:off -->
 [registry]: https://git.redmadrobot.com/DevOps/docker-android-builder/container_registry
-
 [ghcr]: https://github.com/orgs/RedMadRobot/packages?ecosystem=container&q=android%2F
-
 [danger-kotlin]: https://github.com/danger/kotlin
