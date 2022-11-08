@@ -12,5 +12,7 @@ jobs:
       image-name: ruby
       context: ruby
       title: Ruby image
-      tags: ${{ matrix.version }}
+      tags: |
+        type=raw,value=${{ matrix.version }}
+        type=raw,value=latest,enable=${{ matrix.version == '3.1' }}
       build-args: version=${{ matrix.version }}
