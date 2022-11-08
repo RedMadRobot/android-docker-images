@@ -1,0 +1,13 @@
+name: Danger Kotlin Image
+on: workflow_dispatch
+
+jobs:
+  danger-kotlin:
+    name: Publish Ruby image
+    uses: ./.github/workflows/publish-image.yml
+    with:
+      image-name: ruby
+      context: ruby
+      title: Ruby image
+      tags: ${{ matrix.version }}
+      build-args: version=${{ matrix.version }}

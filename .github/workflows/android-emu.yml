@@ -1,0 +1,16 @@
+name: Android Emulator Image
+on: workflow_dispatch
+
+jobs:
+  android-emu:
+    name: Publish Android Emulator image
+    strategy:
+      matrix:
+        version: [ 30 ]
+    uses: ./.github/workflows/publish-image.yml
+    with:
+      image-name: android-emu
+      context: android-emu
+      title: Android Emulator image
+      tags: ${{ matrix.version }}
+      build-args: api_version=${{ matrix.version }}

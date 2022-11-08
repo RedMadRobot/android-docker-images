@@ -1,0 +1,76 @@
+name: Android SDK Images
+on: workflow_dispatch
+
+env:
+  # Look for SDK Build Tools version here:
+  #  https://developer.android.com/studio/releases/gradle-plugin#compatibility
+  BUILD_TOOLS: 30.0.3
+  # Look for NDK versions here:
+  #  https://developer.android.com/ndk/downloads
+  NDK: 25.1.8937393
+  # Common prefix of images path
+  IMAGE_PATH: ghcr.io/redmadrobot/android
+
+jobs:
+  # Dirty hack to make env variables visible inside 'with'
+  # See https://github.com/orgs/community/discussions/26671
+  env:
+    name: Prepare environment variables
+    runs-on: ubuntu-latest
+    outputs:
+      build-tools: ${{ steps.env.outputs.build-tools }}
+      ndk: ${{ steps.env.outputs.ndk }}
+      image-path: ${{ steps.env.outputs.image-path }}
+    steps:
+      - name: Save env variable to outputs
+        id: env
+        run: |
+          echo "build-tools=$BUILD_TOOLS" >> $GITHUB_OUTPUT
+          echo "ndk=$NDK" >> $GITHUB_OUTPUT
+          echo "image-path=$IMAGE_PATH" >> $GITHUB_OUTPUT
+
+  android-sdk-base:
+    name: Publish Android SDK base image
+    needs: env
+    uses: ./.github/workflows/publish-image.yml
+    with:
+      image-name: android-sdk
+      context: android-sdk
+      title: Android SDK base image
+      tags: base
+      build-args: build_tools=${{ needs.env.outputs.build-tools }}
+
+  android-sdk:
+    name: Publish Android SDK image
+    needs: [ android-sdk-base, env ]
+    strategy:
+      matrix:
+        sdk: [ 30, 31, 32, 33 ]
+    uses: ./.github/workflows/publish-image.yml
+    with:
+      image-name: android-sdk
+      context: android-sdk/sdk
+      title: Android SDK ${{ matrix.sdk }} image
+      tags: ${{ matrix.sdk }}
+      build-args: |
+        image_path=${{ needs.env.outputs.image-path }}
+        sdk=${{ matrix.sdk }}
+
+  android-sdk-ndk:
+    name: Publish Android SDK image with NDK
+    needs: [ android-sdk, env ]
+    strategy:
+      matrix:
+        sdk: [ 30, 31, 32, 33 ]
+    uses: ./.github/workflows/publish-image.yml
+    with:
+      image-name: android-sdk
+      context: android-sdk/ndk
+      title: Android SDK ${{ matrix.sdk }} image with NDK ${{ needs.env.outputs.ndk }}
+      tags: |
+        ${{ matrix.sdk }}-ndk
+        ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}
+      build-args: |
+        image_path=${{ needs.env.outputs.image-path }}
+        sdk=${{ matrix.sdk }}
+        ndk=${{ needs.env.outputs.ndk }}
