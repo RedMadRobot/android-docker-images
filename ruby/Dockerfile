@@ -1,5 +1,5 @@
 ARG version
-FROM ruby:${version}-slim
+FROM ruby:${version}-slim-bullseye
 
 ENV FL_GMAIL_USERNAME=ci-android@redmadrobot.com
 

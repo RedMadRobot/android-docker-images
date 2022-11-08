@@ -58,12 +58,13 @@ Where `[x]` is SDK version and `[y]` is NDK version (optionally).
 
 ## ruby:[x]
 
+> `ghcr.io/redmadrobot/android/ruby:3.1` \
 > `ghcr.io/redmadrobot/android/ruby:3.0` \
 > `ghcr.io/redmadrobot/android/ruby:2.7`
 
 Ruby image with some additions to work with Fastlane and Danger.
 
-**Base image:** `ruby:[x]-slim` \
+**Base image:** `ruby:[x]-slim-bullseye` \
 **Packages:**
 
 - Bundler
