@@ -80,7 +80,7 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 **Base image**: `android-sdk:30`
 
-To start emulator, you should run script `/start_emulator.sh`.
+To start emulator, you should run script `start-emulator`.
 Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).
 
 ### danger-kotlin:[x]
