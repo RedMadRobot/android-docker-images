@@ -19,4 +19,4 @@ RUN apt update -y && \
 COPY config.ini $HOME/.android/avd/${EMULATOR_NAME}.avd/config.ini
 RUN sed -i "s/ANDROID_API_VERSION/${api_version}/" $HOME/.android/avd/${EMULATOR_NAME}.avd/config.ini
 
-ADD start_emulator.sh /start_emulator.sh
+ADD start_emulator.sh /bin/start-emulator

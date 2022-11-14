@@ -26,14 +26,25 @@ function check_kvm() {
 
 function config_emulator_settings() {
     log_info "Let's configure emulator via adb.."
-    adb root
+
     adb shell "settings put global window_animation_scale 0.0"
     adb shell "settings put global transition_animation_scale 0.0"
     adb shell "settings put global animator_duration_scale 0.0"
     adb shell "settings put secure spell_checker_enabled 0"
     adb shell "settings put secure show_ime_with_hard_keyboard 1"
-    adb shell "settings put system screen_off_timeout 1800000"
+
+    # This is not applied to system images with API level < 26
+    # as there is not a reliable boot complete signal communicated back to the host for those system images.
+    adb shell "settings put system screen_off_timeout 2147483647"
     adb shell "settings put secure long_press_timeout 1500"
+    # Hidden APIs
+    # https://developer.android.com/distribute/best-practices/develop/restrictions-non-sdk-interfaces#how_can_i_enable_access_to_non-sdk_interfaces
+    # Android 9
+    adb shell "settings put global hidden_api_policy_pre_p_apps 1"
+    adb shell "settings put global hidden_api_policy_p_apps 1"
+    # Android 10+
+    adb shell "settings put global hidden_api_policy 1"
+
     adb shell "am broadcast -a com.android.intent.action.SET_LOCALE --es com.android.intent.extra.LOCALE EN"
     adb shell input keyevent 82
 }
