@@ -18,13 +18,15 @@ ENV PATH="$PATH:$ANDROID_HOME/platform-tools"
 ENV PATH="$PATH:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION"
 
 # Install required tools
+#  libncurses5 is required by llvm-rs-cc (build-tools)
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
             git \
             zip \
             unzip \
             python3 \
-            python3-pip && \
+            python3-pip  \
+            libncurses5 && \
     rm -rf /var/lib/apt/lists/*
 
 # Install required libraries for 64-bit machine
