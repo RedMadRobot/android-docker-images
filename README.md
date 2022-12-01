@@ -80,8 +80,14 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 **Base image**: `android-sdk:30`
 
-To start emulator, you should run script `start-emulator`.
-Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).
+To start emulator, you should run script [`start-emulator`](android-emu/start_emulator.sh).  
+Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).  
+
+To save snapshot use script [`prepare-snapshot`](android-emu/prepare_snapshot.sh).  
+This script will create a snapshot with the name from the environment variable `DEFAULT_SNAPSHOT` ([`DEFAULT_SNAPSHOT="ci"`](android-emu/Dockerfile) by default).
+
+To run the emulator with `DEFAULT_SNAPSHOT` set `SNAPSHOT_ENABLED="true"` (by default snapshot is disabled):  
+> `SNAPSHOT_ENABLED="true" start-emulator`
 
 ### danger-kotlin:[x]
 
