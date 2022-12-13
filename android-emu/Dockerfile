@@ -4,7 +4,8 @@ FROM ghcr.io/redmadrobot/android/android-sdk:${api_version}
 
 ARG api_version
 ENV EMULATOR_NAME="EMU_${api_version}"
-ENV ANDROID_IMAGES="system-images;android-${api_version};google_apis;x86_64"   
+ENV ANDROID_IMAGES="system-images;android-${api_version};google_apis;x86_64"
+ENV DEFAULT_SNAPSHOT="ci"
 
 RUN sdkmanager --verbose --install ${ANDROID_IMAGES}
 
@@ -16,7 +17,7 @@ RUN apt update -y && \
     apt install -y qemu qemu-kvm libvirt-daemon libvirt-clients bridge-utils virt-manager libguestfs-tools && \
     apt autoclean && apt autoremove
 
-COPY config.ini $HOME/.android/avd/${EMULATOR_NAME}.avd/config.ini
-RUN sed -i "s/ANDROID_API_VERSION/${api_version}/" $HOME/.android/avd/${EMULATOR_NAME}.avd/config.ini
+COPY configs/${api_version}.ini $HOME/.android/avd/${EMULATOR_NAME}.avd/config.ini
 
 ADD start_emulator.sh /bin/start-emulator
+ADD prepare_snapshot.sh /bin/prepare-snapshot

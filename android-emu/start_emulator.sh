@@ -24,7 +24,7 @@ function check_kvm() {
     fi
 }
 
-function config_emulator_settings() {
+function configure_emulator() {
     log_info "Let's configure emulator via adb.."
 
     adb shell "settings put global window_animation_scale 0.0"
@@ -79,10 +79,18 @@ function wait_emulator_boot_completed() {
     done
 }
 
-function wait_emulator_to_be_ready() {
+function run_emulator() {
     adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done
 
-    ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -verbose -no-boot-anim -wipe-data -no-snapshot -no-audio -no-window &
+    if [ "${SNAPSHOT_ENABLED}" == "true" ]; then
+        log_info "Snapshots: Emulator will be run with loading snapshot (name: ${DEFAULT_SNAPSHOT})"
+        snapshot_arguments+=(-snapshot ${DEFAULT_SNAPSHOT} -no-snapshot-save)
+    else
+        log_info "Snapshots: Emulator will be run without snapshot feature"
+        snapshot_arguments+=(-no-snapshot)
+    fi
+
+    ${ANDROID_HOME}/emulator/emulator -avd ${EMULATOR_NAME} -verbose -no-boot-anim -wipe-data ${snapshot_arguments} -no-audio -no-window &
 
     wait_emulator
     wait_emulator_boot_completed
@@ -97,9 +105,9 @@ function start_emulator_if_possible() {
         log_error "Run emulator failed, nested virtualization is not supported"
         exit 1
     else
-        wait_emulator_to_be_ready
+        run_emulator
         sleep 1
-        config_emulator_settings
+        configure_emulator
     fi
 }
 
