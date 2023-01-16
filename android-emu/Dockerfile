@@ -21,3 +21,6 @@ COPY configs/${api_version}.ini $HOME/.android/avd/${EMULATOR_NAME}.avd/config.i
 
 ADD start_emulator.sh /bin/start-emulator
 ADD prepare_snapshot.sh /bin/prepare-snapshot
+
+RUN curl https://github.com/allure-framework/allurectl/releases/latest/download/allurectl_linux_amd64 -Lo /bin/allurectl && \
+    chmod +x /bin/allurectl

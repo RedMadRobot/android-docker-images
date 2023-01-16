@@ -80,14 +80,18 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 **Base image**: `android-sdk:30`
 
-To start emulator, you should run script [`start-emulator`](android-emu/start_emulator.sh).  
-Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).  
+**Scripts**:
 
-To save snapshot use script [`prepare-snapshot`](android-emu/prepare_snapshot.sh).  
-This script will create a snapshot with the name from the environment variable `DEFAULT_SNAPSHOT` ([`DEFAULT_SNAPSHOT="ci"`](android-emu/Dockerfile) by default).
+- [`start-emulator`](android-emu/start_emulator.sh) - a script to start the emulator.  
+  Emulator will be named as **EMU_X**, where **X** - is an SDK version (for, API **30** name will be **EMU_30**).
+- [`prepare-snapshot`](android-emu/prepare_snapshot.sh) - a script to save a snapshot.  
+  This script will create a snapshot with the name from the environment variable `DEFAULT_SNAPSHOT` ([`DEFAULT_SNAPSHOT="ci"`](android-emu/Dockerfile) by default).  
+  To run the emulator with `DEFAULT_SNAPSHOT` set `SNAPSHOT_ENABLED="true"` (by default snapshot is disabled):  
+  > `SNAPSHOT_ENABLED="true" start-emulator`  
 
-To run the emulator with `DEFAULT_SNAPSHOT` set `SNAPSHOT_ENABLED="true"` (by default snapshot is disabled):  
-> `SNAPSHOT_ENABLED="true" start-emulator`
+**Binaries**:
+
+- [Allurectl][allurectl] - command line wrapper of Allure TestOps' API allowing you to upload the test results in real time from a build job, and managing entities on Allure TestOps side (test cases, launches, projects).
 
 ### danger-kotlin:[x]
 
@@ -109,3 +113,4 @@ To run the emulator with `DEFAULT_SNAPSHOT` set `SNAPSHOT_ENABLED="true"` (by de
 [registry]: https://git.redmadrobot.com/DevOps/docker-android-builder/container_registry
 [ghcr]: https://github.com/orgs/RedMadRobot/packages?ecosystem=container&q=android%2F
 [danger-kotlin]: https://github.com/danger/kotlin
+[allurectl]: https://github.com/allure-framework/allurectl
