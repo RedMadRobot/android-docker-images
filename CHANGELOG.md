@@ -1,10 +1,19 @@
 ## [Unreleased]
 
-> Since now every image has also tag with the date when it was published
+> **Warning**
+> This update contains breaking changes.
+> Unfortunately, there was no any mechanism to specify version strictly until now. Starting from this release, every image has tag with the date when it was published.
+> To keep builds reproducible and to not get unexpected breaking changes it is recommended to use tags with date suffix `-YYYYMMDD`: `android-sdk:33` -> `android-sdk:33-20230419`
 
 ### android-sdk
 
 > Remember to align buildToolsVersion in your project with the version used in the image after update
+>
+> ```kotlin
+> android {
+>     buildToolsVersion = "34.0.0-rc3"
+> }
+> ```
 
 - :exclamation: Update to JDK 17, old images with JDK 11 are deprecated. See "Deprecated tags" spoilers if you want to continue use it
 - :exclamation: Update build-tools `30.0.3` → `34.0.0-rc3` to support Android 14
