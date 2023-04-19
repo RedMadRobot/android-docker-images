@@ -12,8 +12,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install bundler
-ENV GEM_HOME="/usr/local/bundle" \
-    PATH="$GEM_HOME/bin:$GEM_HOME/gems/bin:$PATH"
+ENV PATH="$GEM_HOME/gems/bin:$PATH"
 RUN gem install bundler
 
 # Install firebase-cli
