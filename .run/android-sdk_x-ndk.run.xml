@@ -11,6 +11,7 @@
             </DockerEnvVarImpl>
           </list>
         </option>
+        <option name="buildCliOptions" value="--platform linux/amd64" />
         <option name="buildOnly" value="true" />
         <option name="sourceFilePath" value="android-sdk/ndk/Dockerfile" />
       </settings>
