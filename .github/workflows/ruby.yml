@@ -13,6 +13,7 @@ jobs:
       context: ruby
       title: Ruby image
       tags: |
-        type=raw,value=${{ matrix.version }}
+        ${{ matrix.version }}
+        ${{ matrix.version }}-{{date 'YYYYMMDD'}}
         type=raw,value=latest,enable=${{ matrix.version == '3.2' }}
       build-args: version=${{ matrix.version }}

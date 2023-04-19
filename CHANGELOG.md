@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+> Since now every image has also tag with the date when it was published
+
 ### android-sdk
 
 - Deprecate images with JDK 11, see "Deprecated tags" spoilers

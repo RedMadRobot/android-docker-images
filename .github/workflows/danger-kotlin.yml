@@ -12,5 +12,7 @@ jobs:
       image-name: danger-kotlin
       context: danger-kotlin
       title: Danger Kotlin image
-      tags: ${{ matrix.version }}
+      tags: |
+        ${{ matrix.version }}
+        ${{ matrix.version }}-{{date 'YYYYMMDD'}}
       build-args: version=${{ matrix.version }}

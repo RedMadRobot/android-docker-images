@@ -37,7 +37,9 @@ jobs:
       image-name: android-sdk
       context: android-sdk
       title: Android SDK base image
-      tags: base-jdk11
+      tags: |
+        base
+        base-{{date 'YYYYMMDD'}}
       build-args: build_tools=${{ needs.env.outputs.build-tools }}
 
   android-sdk:
@@ -51,7 +53,9 @@ jobs:
       image-name: android-sdk
       context: android-sdk/sdk
       title: Android SDK ${{ matrix.sdk }} image
-      tags: ${{ matrix.sdk }}-jdk11
+      tags: |
+        ${{ matrix.sdk }}
+        ${{ matrix.sdk }}-{{date 'YYYYMMDD'}}
       build-args: |
         image_path=${{ needs.env.outputs.image-path }}
         sdk=${{ matrix.sdk }}
@@ -68,8 +72,9 @@ jobs:
       context: android-sdk/ndk
       title: Android SDK ${{ matrix.sdk }} image with NDK ${{ needs.env.outputs.ndk }}
       tags: |
-        ${{ matrix.sdk }}-jdk11-ndk
-        ${{ matrix.sdk }}-jdk11-ndk-${{ needs.env.outputs.ndk }}
+        ${{ matrix.sdk }}-ndk
+        ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}
+        ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}-{{date 'YYYYMMDD'}}
       build-args: |
         image_path=${{ needs.env.outputs.image-path }}
         sdk=${{ matrix.sdk }}
