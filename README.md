@@ -3,6 +3,11 @@
 Set of docker images used by red_mad_robot Android team.
 All images are published in [GitHub Container Registry][ghcr].
 
+> **Note**  
+> All images versioned using prefix with date when this image was built `[tag]-YYYYMMDD`.
+> It is recommended to use image tags with date prefix to keep build stable and to not break it on images updates.
+> All changes are listed in [CHANGELOG](CHANGELOG.md).
+
 ---
 
 ## android-sdk
