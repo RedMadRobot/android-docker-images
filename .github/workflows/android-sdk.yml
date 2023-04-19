@@ -9,7 +9,7 @@ env:
   #  https://developer.android.com/ndk/downloads
   NDK: 25.1.8937393
   # Common prefix of images path
-  IMAGE_PATH: ghcr.io/redmadrobot/android
+  IMAGE_PATH: ghcr.io/redmadrobot/android/
 
 jobs:
   # Dirty hack to make env variables visible inside 'with'

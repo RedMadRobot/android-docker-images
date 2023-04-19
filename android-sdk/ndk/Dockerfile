@@ -1,6 +1,6 @@
-ARG image_path
+ARG image_path=""
 ARG sdk
-FROM ${image_path}/android-sdk:${sdk}
+FROM ${image_path}android-sdk:${sdk}
 
 ARG ndk
 RUN : \
