@@ -7,6 +7,16 @@ All images are published in [GitHub Container Registry][ghcr].
 
 ## android-sdk
 
+> **Note**  
+> You should always align build-tools and compile SDK in your project to match versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
+>
+> ```kotlin
+> android {
+>     buildToolsVersion = "34.0.0-rc3"
+>     compileSdk = [x]
+> }
+> ```
+
 ### android-sdk:base
 
 > `ghcr.io/redmadrobot/android/android-sdk:base`
@@ -17,12 +27,9 @@ Base Android image. All other android images are built on top of this image.
 **Packages:**
 
 - sdkmanager:
-    - cmdline-tools;latest
-    - platform-tools
-    - build-tools;**30.0.3**
-    - extras;android;m2repository
-    - extras;google;google_play_services
-    - extras;google;m2repository"
+    - cmdline-tools **9.0**
+    - build-tools **34.0.0-rc3**
+    - platform-tools **34.0.1**
 - python3
 - git
 - zip, unzip

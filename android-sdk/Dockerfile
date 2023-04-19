@@ -13,12 +13,11 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV HOME="/root"
 ENV ANDROID_HOME="/opt/android-sdk"
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
-ENV PATH="$PATH:$ANDROID_HOME/tools/bin"
 ENV PATH="$PATH:$ANDROID_HOME/platform-tools"
 ENV PATH="$PATH:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION"
 
 # Install required tools
-#  libncurses5 is required by llvm-rs-cc (build-tools)
+#  libncurses5 is required by llvm-rs-cc (build-tools before 30.0.3)
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
             git \
@@ -57,11 +56,10 @@ WORKDIR $HOME
 RUN mkdir -p .android && \
     touch .android/repositories.cfg
 
-# Update SDK manager and install system image, platform and build tools
+# Accept licenses and install build tools and platform tools
+# https://developer.android.com/tools/releases/build-tools
+# https://developer.android.com/tools/releases/platform-tools
 RUN yes | sdkmanager --licenses && \
-    yes | sdkmanager --update && \
     yes | sdkmanager \
       "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
-      "extras;android;m2repository" \
-      "extras;google;google_play_services" \
-      "extras;google;m2repository"
+      "platform-tools"

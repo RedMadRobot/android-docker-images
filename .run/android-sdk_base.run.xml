@@ -7,7 +7,7 @@
           <list>
             <DockerEnvVarImpl>
               <option name="name" value="build_tools" />
-              <option name="value" value="30.0.3" />
+              <option name="value" value="34.0.0-rc3" />
             </DockerEnvVarImpl>
           </list>
         </option>

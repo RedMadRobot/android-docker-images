@@ -4,8 +4,17 @@
 
 ### android-sdk
 
-- Deprecate images with JDK 11, see "Deprecated tags" spoilers
-- Update commadlinetools to 9.0
+> Remember to align buildToolsVersion in your project with the version used in the image after update
+
+- :exclamation: Deprecate images with JDK 11, see "Deprecated tags" spoilers
+- :exclamation: Update build-tools `30.0.3` → `34.0.0-rc3` to support Android 14
+- Update platform-tools to `34.0.1`
+- Update commadlinetools `8.0` → `9.0`
+- Remove `$ANDROID_HOME/tools/bin` from `PATH` since it was used by `sdk-tools` package which is deprecated
+- Remove extra packages from sdkmanager:
+  - `extras;android;m2repository`
+  - `extras;google;m2repository`
+  - `extras;google;google_play_services`
 
 ### ruby
 

@@ -4,7 +4,7 @@ on: workflow_dispatch
 env:
   # Look for SDK Build Tools version here:
   #  https://developer.android.com/studio/releases/gradle-plugin#compatibility
-  BUILD_TOOLS: 30.0.3
+  BUILD_TOOLS: 34.0.0-rc3
   # Look for NDK versions here:
   #  https://developer.android.com/ndk/downloads
   NDK: 25.1.8937393
