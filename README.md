@@ -23,7 +23,7 @@ All images are published in [GitHub Container Registry][ghcr].
 
 Base Android image. All other android images are built on top of this image.
 
-**Base image**: `eclipse-temurin:11-jdk-jammy` \
+**Base image**: `eclipse-temurin:17-jdk-jammy` \
 **Packages:**
 
 - sdkmanager:
