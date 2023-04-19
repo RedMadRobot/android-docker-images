@@ -27,16 +27,36 @@ Base Android image. All other android images are built on top of this image.
 - git
 - zip, unzip
 
+<details>
+<summary>Deprecated tags</summary>
+
+    base-jdk11
+
+</details>
+
 ### android-sdk:[x]
 
-> `ghcr.io/redmadrobot/android/android-sdk:[x]`
+> `ghcr.io/redmadrobot/android/android-sdk:[tag]`
 
-Where `[x]` is one of API levels:
+Image with preinstalled SDK.
+It should match your `compileSdk` in project build script.
 
-- 33 (Android 13)
-- 32 (Android 12L)
-- 31 (Android 12)
-- 30 (Android 11)
+**Tags:**
+
+- `33` (Android 13)
+- `32` (Android 12L)
+- `31` (Android 12)
+- `30` (Android 11)
+
+<details>
+<summary>Deprecated tags</summary>
+
+    - 33-jdk11
+    - 32-jdk11
+    - 31-jdk11
+    - 30-jdk11
+
+</details>
 
 ### android-sdk:[x]-ndk
 
@@ -45,14 +65,26 @@ Where `[x]` is one of API levels:
 
 Where `[x]` is SDK version and `[y]` is NDK version (optionally).
 
+**Base image**: `android-sdk:[x]` \
 **NDK version**: 25.1.8937393
 
-<details>
-<summary>Other images</summary>
+**Tags:**
 
-    android-sdk:32-ndk-22.1.7171670
-    android-sdk:31-ndk-22.1.7171670
-    android-sdk:30-ndk-22.1.7171670
+- `33-ndk`, `33-ndk-25.1.8937393`
+- `32-ndk`, `32-ndk-25.1.8937393`
+- `31-ndk`, `31-ndk-25.1.8937393`
+- `30-ndk`, `30-ndk-25.1.8937393`
+
+<details>
+<summary>Deprecated tags</summary>
+
+    - 33-jdk11-ndk, 33-jdk11-ndk-25.1.8937393
+    - 32-jdk11-ndk, 32-jdk11-ndk-25.1.8937393
+    - 32-ndk-22.1.7171670
+    - 31-jdk11-ndk, 31-jdk11-ndk-25.1.8937393
+    - 31-ndk-22.1.7171670
+    - 30-jdk11-ndk, 30-jdk11-ndk-25.1.8937393
+    - 30-ndk-22.1.7171670
 
 </details>
 

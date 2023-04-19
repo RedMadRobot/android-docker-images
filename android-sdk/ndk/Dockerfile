@@ -1,6 +1,6 @@
 ARG image_path
 ARG sdk
-FROM ${image_path}/android-sdk:${sdk}
+FROM ${image_path}/android-sdk:${sdk}-jdk11
 
 ARG ndk
 RUN : \

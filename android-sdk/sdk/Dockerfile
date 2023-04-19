@@ -1,5 +1,5 @@
 ARG image_path
-FROM ${image_path}/android-sdk:base
+FROM ${image_path}/android-sdk:base-jdk11
 
 # SDK version should be specified via build args
 ARG sdk

@@ -2,6 +2,7 @@
 
 ### android-sdk
 
+- Deprecate images with JDK 11, see "Deprecated tags" spoilers
 - Update commadlinetools to 9.0
 
 ### ruby
