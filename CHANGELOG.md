@@ -1,6 +1,8 @@
 ## [Unreleased]
 
-> **Warning**
+## [2023.04.19]
+
+> **Warning**  
 > This update contains breaking changes.
 > Unfortunately, there was no any mechanism to specify version strictly until now. Starting from this release, every image has tag with the date when it was published.
 > To keep builds reproducible and to not get unexpected breaking changes it is recommended to use tags with date suffix `-YYYYMMDD`: `android-sdk:33` -> `android-sdk:33-20230419`
@@ -30,4 +32,5 @@
 - Add ruby 3.2 image
 - Remove redundant environment variables
 
-[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2023.01.16..main
+[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2023.04.19..main
+[2023.04.19]: https://github.com/RedMadRobot/android-docker-images/compare/2023.01.16..2023.04.19
