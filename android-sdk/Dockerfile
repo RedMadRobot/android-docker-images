@@ -43,7 +43,7 @@ RUN localedef -i en_US -c -f UTF-8 \
 # NOTE: Remember to update cmdline-tools-package.xml on commandlinetools update.
 WORKDIR $ANDROID_HOME
 RUN wget --quiet --output-document=commandlinetools.zip \
-         https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip && \
+         https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && \
     unzip -qq commandlinetools.zip -d tmp/ && \
     mkdir -p cmdline-tools/latest/ && \
     mv tmp/cmdline-tools/* cmdline-tools/latest/ && \
