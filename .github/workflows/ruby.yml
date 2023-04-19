@@ -6,7 +6,7 @@ jobs:
     name: Publish Ruby image
     strategy:
       matrix:
-        version: [ '2.7', '3.0', '3.1' ]
+        version: [ '2.7', '3.0', '3.1', '3.2' ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ruby
@@ -14,5 +14,5 @@ jobs:
       title: Ruby image
       tags: |
         type=raw,value=${{ matrix.version }}
-        type=raw,value=latest,enable=${{ matrix.version == '3.1' }}
+        type=raw,value=latest,enable=${{ matrix.version == '3.2' }}
       build-args: version=${{ matrix.version }}

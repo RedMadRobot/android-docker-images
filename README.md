@@ -58,9 +58,7 @@ Where `[x]` is SDK version and `[y]` is NDK version (optionally).
 
 ## ruby:[x]
 
-> `ghcr.io/redmadrobot/android/ruby:3.1` \
-> `ghcr.io/redmadrobot/android/ruby:3.0` \
-> `ghcr.io/redmadrobot/android/ruby:2.7`
+> `ghcr.io/redmadrobot/android/ruby:[tag]`
 
 Ruby image with some additions to work with Fastlane and Danger.
 
@@ -69,6 +67,12 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 - Bundler
 - Firebase CLI
+
+**Tags:**
+- `3.2`, `latest`
+- `3.1`
+- `3.0`
+- `2.7`
 
 ## Experimental images
 
