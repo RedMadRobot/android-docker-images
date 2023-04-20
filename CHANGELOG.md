@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### android-sdk
+
+- Add sha256sum check for downloaded commandlinetools
+
 ## [2023.04.19]
 
 > **Warning**  

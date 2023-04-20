@@ -40,9 +40,12 @@ RUN localedef -i en_US -c -f UTF-8 \
 # Download and install Android Commandline Tools
 # Commandline Tools revisions: https://developer.android.com/studio#command-line-tools-only
 # NOTE: Remember to update cmdline-tools-package.xml on commandlinetools update.
+ARG commandlinetools_url=https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+ARG commandlinetools_sha256=bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
+
 WORKDIR $ANDROID_HOME
-RUN wget --quiet --output-document=commandlinetools.zip \
-         https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip && \
+RUN wget --quiet --output-document=commandlinetools.zip ${commandlinetools_url} && \
+    echo "$commandlinetools_sha256 commandlinetools.zip" | sha256sum --check && \
     unzip -qq commandlinetools.zip -d tmp/ && \
     mkdir -p cmdline-tools/latest/ && \
     mv tmp/cmdline-tools/* cmdline-tools/latest/ && \
