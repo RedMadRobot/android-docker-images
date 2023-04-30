@@ -8,4 +8,5 @@ RUN : \
 ENV ANDROID_NDK_VERSION=$ndk
 
 RUN yes | sdkmanager --update && \
-    sdkmanager "ndk;$ANDROID_NDK_VERSION"
+    sdkmanager "ndk;$ANDROID_NDK_VERSION" && \
+    rm -rf "$ANDROID_USER_HOME/cache"

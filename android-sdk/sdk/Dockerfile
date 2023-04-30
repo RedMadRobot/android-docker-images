@@ -10,4 +10,5 @@ ENV ANDROID_COMPILE_SDK=$sdk
 # Install SDK
 RUN yes | sdkmanager --update && \
     yes | sdkmanager \
-      "platforms;android-$ANDROID_COMPILE_SDK"
+      "platforms;android-$ANDROID_COMPILE_SDK" && \
+    rm -rf "$ANDROID_USER_HOME/cache"

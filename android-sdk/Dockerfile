@@ -12,6 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Define Android SDK path variables
 ENV HOME="/root"
 ENV ANDROID_HOME="/opt/android-sdk"
+ENV ANDROID_USER_HOME="$HOME/.android"
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 ENV PATH="$PATH:$ANDROID_HOME/platform-tools"
 ENV PATH="$PATH:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION"
@@ -42,22 +43,21 @@ WORKDIR $ANDROID_HOME
 RUN wget --quiet --output-document=commandlinetools.zip ${commandlinetools_url} && \
     echo "$commandlinetools_sha256 commandlinetools.zip" | sha256sum --check && \
     unzip -qq commandlinetools.zip -d tmp/ && \
-    mkdir -p cmdline-tools/latest/ && \
-    mv tmp/cmdline-tools/* cmdline-tools/latest/ && \
+    mkdir cmdline-tools/ && \
+    mv tmp/cmdline-tools cmdline-tools/latest && \
     rm -rf tmp commandlinetools.zip
 # Make cmdline-tools visible for sdkmanager
 COPY cmdline-tools-package.xml "cmdline-tools/latest/package.xml"
 WORKDIR $HOME
 
-# Workaround for
-# Warning: File .android/repositories.cfg could not be loaded.
-RUN mkdir -p .android && \
-    touch .android/repositories.cfg
-
 # Accept licenses and install build tools and platform tools
 # https://developer.android.com/tools/releases/build-tools
 # https://developer.android.com/tools/releases/platform-tools
-RUN yes | sdkmanager --licenses && \
+RUN mkdir --parents ${ANDROID_USER_HOME} && \
+    # Workaround for "Warning: File .android/repositories.cfg could not be loaded."
+    touch "$ANDROID_USER_HOME/repositories.cfg" && \
+    yes | sdkmanager --licenses && \
     yes | sdkmanager \
       "build-tools;$ANDROID_BUILD_TOOLS_VERSION" \
-      "platform-tools"
+      "platform-tools" && \
+    rm -rf "$ANDROID_USER_HOME/cache"

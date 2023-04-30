@@ -3,6 +3,8 @@
 ### android-sdk
 
 - Add sha256sum check for downloaded commandlinetools
+- Declare environment variable `ANDROID_USER_HOME = $HOME/.android`
+- Remove sdkmanager cache from images
 - Do not install i386 libraries for 64-bit machines
 
 ## [2023.04.19]
