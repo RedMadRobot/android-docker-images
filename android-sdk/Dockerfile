@@ -28,11 +28,6 @@ RUN apt-get update --yes && \
             libncurses5 && \
     rm -rf /var/lib/apt/lists/*
 
-# Install required libraries for 64-bit machine
-# https://developer.android.com/studio/install#64bit-libs
-COPY amd64-install-libs.sh /tmp/
-RUN /tmp/amd64-install-libs.sh
-
 # Setup locale
 RUN localedef -i en_US -c -f UTF-8 \
                   -A /usr/share/locale/locale.alias en_US.UTF-8

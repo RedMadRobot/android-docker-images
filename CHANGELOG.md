@@ -3,6 +3,7 @@
 ### android-sdk
 
 - Add sha256sum check for downloaded commandlinetools
+- Do not install i386 libraries for 64-bit machines
 
 ## [2023.04.19]
 
