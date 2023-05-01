@@ -23,6 +23,10 @@ on:
         description: 'List of build-time variables separated with linebreak'
         required: false
         type: string
+      target:
+        description: 'Sets the target stage to build'
+        required: false
+        type: string
 
 jobs:
   publish:
@@ -58,5 +62,6 @@ jobs:
           context: ${{ inputs.context }}
           push: true
           build-args: ${{ inputs.build-args }}
+          target: ${{ inputs.target }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

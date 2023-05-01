@@ -1,6 +1,11 @@
 # syntax=docker/dockerfile:1
 
-FROM eclipse-temurin:17-jdk-jammy
+# Locally use previous stages to build SDK and NDK,
+# but allow to use published images as parent image on CI
+ARG base_image="base"
+ARG sdk_image="sdk"
+
+FROM eclipse-temurin:17-jdk-jammy AS base
 
 # Specify build tools version
 ARG build_tools
@@ -73,3 +78,31 @@ EOF
 COPY cmdline-tools-package.xml "cmdline-tools/latest/package.xml"
 
 WORKDIR $HOME
+
+FROM $base_image AS sdk
+
+ARG sdk
+ENV ANDROID_COMPILE_SDK=$sdk
+
+RUN <<EOF
+  # Check SDK version specified via build args
+  : ${sdk:?"Compile SDK version should be specified via '--build-arg sdk'"}
+
+  yes | sdkmanager --update
+  yes | sdkmanager "platforms;android-$ANDROID_COMPILE_SDK"
+  rm -rf "$ANDROID_USER_HOME/cache"
+EOF
+
+FROM $sdk_image AS ndk
+
+ARG ndk
+ENV ANDROID_NDK_VERSION=$ndk
+
+RUN <<EOF
+  # Check NDK version specified via build args
+  : ${ndk:?"NDK version should be specified via '--build-arg ndk'"}
+
+  yes | sdkmanager --update
+  yes | sdkmanager "ndk;$ANDROID_NDK_VERSION"
+  rm -rf "$ANDROID_USER_HOME/cache"
+EOF

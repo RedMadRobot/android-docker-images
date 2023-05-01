@@ -9,7 +9,7 @@ env:
   #  https://developer.android.com/ndk/downloads
   NDK: 25.1.8937393
   # Common prefix of images path
-  IMAGE_PATH: ghcr.io/redmadrobot/android/
+  IMAGE_PATH: ghcr.io/redmadrobot/android/android-sdk
 
 jobs:
   # Dirty hack to make env variables visible inside 'with'
@@ -36,6 +36,7 @@ jobs:
     with:
       image-name: android-sdk
       context: android-sdk
+      target: base
       title: Android SDK base image
       tags: |
         base
@@ -51,13 +52,14 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: android-sdk
-      context: android-sdk/sdk
+      context: android-sdk
+      target: sdk
       title: Android SDK ${{ matrix.sdk }} image
       tags: |
         ${{ matrix.sdk }}
         ${{ matrix.sdk }}-{{date 'YYYYMMDD'}}
       build-args: |
-        image_path=${{ needs.env.outputs.image-path }}
+        base_image=${{ needs.env.outputs.image-path }}:base
         sdk=${{ matrix.sdk }}
 
   android-sdk-ndk:
@@ -69,13 +71,13 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: android-sdk
-      context: android-sdk/ndk
+      context: android-sdk
+      target: ndk
       title: Android SDK ${{ matrix.sdk }} image with NDK ${{ needs.env.outputs.ndk }}
       tags: |
         ${{ matrix.sdk }}-ndk
         ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}
         ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}-{{date 'YYYYMMDD'}}
       build-args: |
-        image_path=${{ needs.env.outputs.image-path }}
-        sdk=${{ matrix.sdk }}
+        sdk_image=${{ needs.env.outputs.image-path }}:${{ matrix.sdk }}
         ndk=${{ needs.env.outputs.ndk }}

@@ -7,7 +7,7 @@
           <list>
             <DockerEnvVarImpl>
               <option name="name" value="sdk" />
-              <option name="value" value="x" />
+              <option name="value" value="33" />
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="ndk" />
@@ -15,11 +15,11 @@
             </DockerEnvVarImpl>
           </list>
         </option>
-        <option name="buildCliOptions" value="--platform linux/amd64" />
+        <option name="buildCliOptions" value="--target ndk" />
         <option name="buildKitEnabled" value="true" />
         <option name="buildOnly" value="true" />
         <option name="showCommandPreview" value="true" />
-        <option name="sourceFilePath" value="android-sdk/ndk/Dockerfile" />
+        <option name="sourceFilePath" value="android-sdk/Dockerfile" />
       </settings>
     </deployment>
     <method v="2" />

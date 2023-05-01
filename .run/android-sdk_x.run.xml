@@ -11,15 +11,13 @@
             </DockerEnvVarImpl>
           </list>
         </option>
-        <option name="buildCliOptions" value="--platform linux/amd64" />
+        <option name="buildCliOptions" value="--target sdk" />
         <option name="buildKitEnabled" value="true" />
         <option name="buildOnly" value="true" />
         <option name="showCommandPreview" value="true" />
-        <option name="sourceFilePath" value="android-sdk/sdk/Dockerfile" />
+        <option name="sourceFilePath" value="android-sdk/Dockerfile" />
       </settings>
     </deployment>
-    <method v="2">
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="android-sdk:base" run_configuration_type="docker-deploy" />
-    </method>
+    <method v="2" />
   </configuration>
 </component>
