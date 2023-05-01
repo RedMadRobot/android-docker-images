@@ -8,16 +8,18 @@ RUN : \
     "${build_tools:?"Build tools version should be specified via '--build-arg build_tools'"}"
 ENV ANDROID_BUILD_TOOLS_VERSION=$build_tools
 
-# Make Ubuntu non-interactive
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Define Android SDK path variables
+# Define Android environment variables
+# https://developer.android.com/tools/variables
+# Keep in mind, variable can't be declared and used in the same ENV instructuion
 ENV HOME="/root"
-ENV ANDROID_HOME="/opt/android-sdk"
-ENV ANDROID_USER_HOME="$HOME/.android"
+ENV ANDROID_HOME="/opt/android-sdk" \
+    ANDROID_USER_HOME="$HOME/.android"
 ENV PATH="$PATH:$ANDROID_HOME/cmdline-tools/latest/bin"
 ENV PATH="$PATH:$ANDROID_HOME/platform-tools"
 ENV PATH="$PATH:$ANDROID_HOME/build-tools/$ANDROID_BUILD_TOOLS_VERSION"
+
+# Make apt-get non-interactive
+ARG DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
   # Install required tools (keep it sorted)
