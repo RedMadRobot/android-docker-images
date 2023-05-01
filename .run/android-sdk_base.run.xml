@@ -3,15 +3,7 @@
     <deployment type="dockerfile">
       <settings>
         <option name="imageTag" value="android-sdk:base" />
-        <option name="buildArgs">
-          <list>
-            <DockerEnvVarImpl>
-              <option name="name" value="build_tools" />
-              <option name="value" value="34.0.0-rc3" />
-            </DockerEnvVarImpl>
-          </list>
-        </option>
-        <option name="buildCliOptions" value="--platform linux/amd64" />
+        <option name="buildCliOptions" value="--target base" />
         <option name="buildKitEnabled" value="true" />
         <option name="buildOnly" value="true" />
         <option name="showCommandPreview" value="true" />

@@ -2,9 +2,6 @@ name: Android SDK Images
 on: workflow_dispatch
 
 env:
-  # Look for SDK Build Tools version here:
-  #  https://developer.android.com/studio/releases/gradle-plugin#compatibility
-  BUILD_TOOLS: 34.0.0-rc3
   # Look for NDK versions here:
   #  https://developer.android.com/ndk/downloads
   NDK: 25.1.8937393
@@ -18,14 +15,12 @@ jobs:
     name: Prepare environment variables
     runs-on: ubuntu-latest
     outputs:
-      build-tools: ${{ steps.env.outputs.build-tools }}
       ndk: ${{ steps.env.outputs.ndk }}
       image-path: ${{ steps.env.outputs.image-path }}
     steps:
       - name: Save env variable to outputs
         id: env
         run: |
-          echo "build-tools=$BUILD_TOOLS" >> $GITHUB_OUTPUT
           echo "ndk=$NDK" >> $GITHUB_OUTPUT
           echo "image-path=$IMAGE_PATH" >> $GITHUB_OUTPUT
 
@@ -41,7 +36,6 @@ jobs:
       tags: |
         base
         base-{{date 'YYYYMMDD'}}
-      build-args: build_tools=${{ needs.env.outputs.build-tools }}
 
   android-sdk:
     name: Publish Android SDK image

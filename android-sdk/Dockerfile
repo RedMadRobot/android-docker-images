@@ -7,10 +7,10 @@ ARG sdk_image="sdk"
 
 FROM eclipse-temurin:17-jdk-jammy AS base
 
-# Specify build tools version
-ARG build_tools
-RUN : \
-    "${build_tools:?"Build tools version should be specified via '--build-arg build_tools'"}"
+# Specify build tools version.
+# Use the latest available version by default.
+# https://developer.android.com/tools/releases/build-tools
+ARG build_tools="34.0.0-rc3"
 ENV ANDROID_BUILD_TOOLS_VERSION=$build_tools
 
 # Define Android environment variables
