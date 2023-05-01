@@ -32,6 +32,7 @@ jobs:
       image-name: android-sdk
       context: android-sdk
       target: base
+      platforms: linux/amd64,linux/arm64
       title: Android SDK base image
       tags: |
         base
@@ -48,6 +49,7 @@ jobs:
       image-name: android-sdk
       context: android-sdk
       target: sdk
+      platforms: linux/amd64,linux/arm64
       title: Android SDK ${{ matrix.sdk }} image
       tags: |
         ${{ matrix.sdk }}
@@ -67,6 +69,7 @@ jobs:
       image-name: android-sdk
       context: android-sdk
       target: ndk
+      platforms: linux/amd64,linux/arm64
       title: Android SDK ${{ matrix.sdk }} image with NDK ${{ needs.env.outputs.ndk }}
       tags: |
         ${{ matrix.sdk }}-ndk

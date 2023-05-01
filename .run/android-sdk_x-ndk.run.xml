@@ -15,7 +15,7 @@
             </DockerEnvVarImpl>
           </list>
         </option>
-        <option name="buildCliOptions" value="--target ndk" />
+        <option name="buildCliOptions" value="--platform linux/amd64,linux/arm64 --target ndk" />
         <option name="buildKitEnabled" value="true" />
         <option name="buildOnly" value="true" />
         <option name="showCommandPreview" value="true" />
