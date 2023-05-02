@@ -2,6 +2,7 @@
 ### JetBrains template
 
 .idea/**
+!.idea/externalDependencies.xml
 *.iws
 
 ## Plugin-specific files:
