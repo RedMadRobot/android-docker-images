@@ -9,8 +9,9 @@ on:
         type: string
       context:
         description: 'Location of build files'
-        required: true
+        required: false
         type: string
+        default: '-'
       title:
         description: 'Human-readable image title'
         required: true

@@ -5,7 +5,8 @@ env:
   # Look for NDK versions here:
   #  https://developer.android.com/ndk/downloads
   NDK: 25.1.8937393
-  # Common prefix of images path
+  # Images path and name
+  IMAGE_NAME: android-sdk
   IMAGE_PATH: ghcr.io/redmadrobot/android/android-sdk
 
 jobs:
@@ -16,12 +17,14 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       ndk: ${{ steps.env.outputs.ndk }}
+      image-name: ${{ steps.env.outputs.image-name }}
       image-path: ${{ steps.env.outputs.image-path }}
     steps:
       - name: Save env variable to outputs
         id: env
         run: |
           echo "ndk=$NDK" >> $GITHUB_OUTPUT
+          echo "image-name=$IMAGE_NAME" >> $GITHUB_OUTPUT
           echo "image-path=$IMAGE_PATH" >> $GITHUB_OUTPUT
 
   android-sdk-base:
@@ -29,7 +32,7 @@ jobs:
     needs: env
     uses: ./.github/workflows/publish-image.yml
     with:
-      image-name: android-sdk
+      image-name: ${{ needs.env.outputs.image-name }}
       context: android-sdk
       target: base
       platforms: linux/amd64,linux/arm64
@@ -46,8 +49,7 @@ jobs:
         sdk: [ 30, 31, 32, 33 ]
     uses: ./.github/workflows/publish-image.yml
     with:
-      image-name: android-sdk
-      context: android-sdk
+      image-name: ${{ needs.env.outputs.image-name }}
       target: sdk
       platforms: linux/amd64,linux/arm64
       title: Android SDK ${{ matrix.sdk }} image
@@ -66,8 +68,7 @@ jobs:
         sdk: [ 30, 31, 32, 33 ]
     uses: ./.github/workflows/publish-image.yml
     with:
-      image-name: android-sdk
-      context: android-sdk
+      image-name: ${{ needs.env.outputs.image-name }}
       target: ndk
       platforms: linux/amd64,linux/arm64
       title: Android SDK ${{ matrix.sdk }} image with NDK ${{ needs.env.outputs.ndk }}
