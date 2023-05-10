@@ -2,6 +2,7 @@
 
 ### android-sdk
 
+- Publish images for `linux/arm64` platform
 - Add sha256sum check for downloaded commandlinetools
 - Declare environment variable `ANDROID_USER_HOME = $HOME/.android`
 - Do not set `DEBIAN_FRONTEND` variable

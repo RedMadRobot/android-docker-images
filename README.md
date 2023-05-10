@@ -154,6 +154,13 @@ Ruby image with some additions to work with Fastlane and Danger.
 - **kotlin-compiler**: 1.5.0
 - **danger-kotlin**: [x]
 
+## Images building
+
+Images are meant to be built using [BuildKit] and [buildx] as it require [Dockerfile frontend 1.4+][dockerfile-frontend].
+
+If you want to build multi-platform images it is recommended to [enable containerd image store][containerd].
+Without this option you will not be able to publish images to local store.
+
 ## License
 
 [MIT](LICENSE)
@@ -163,3 +170,7 @@ Ruby image with some additions to work with Fastlane and Danger.
 [ghcr]: https://github.com/orgs/RedMadRobot/packages?ecosystem=container&q=android%2F
 [danger-kotlin]: https://github.com/danger/kotlin
 [allurectl]: https://github.com/allure-framework/allurectl
+[buildkit]: https://docs.docker.com/build/buildkit/
+[buildx]: https://docs.docker.com/build/install-buildx/
+[dockerfile-frontend]: https://hub.docker.com/r/docker/dockerfile
+[containerd]: https://docs.docker.com/desktop/containerd/

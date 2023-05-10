@@ -9,8 +9,9 @@ on:
         type: string
       context:
         description: 'Location of build files'
-        required: true
+        required: false
         type: string
+        default: '-'
       title:
         description: 'Human-readable image title'
         required: true
@@ -21,6 +22,14 @@ on:
         type: string
       build-args:
         description: 'List of build-time variables separated with linebreak'
+        required: false
+        type: string
+      target:
+        description: 'Sets the target stage to build'
+        required: false
+        type: string
+      platforms:
+        description: 'List of target platforms for build'
         required: false
         type: string
 
@@ -35,6 +44,16 @@ jobs:
     steps:
       - name: Checkout the repo
         uses: actions/checkout@v3
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: amd64,arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        with:
+          platforms: ${{ inputs.platforms }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v2
@@ -53,10 +72,12 @@ jobs:
             org.opencontainers.image.title=${{ inputs.title }}
 
       - name: Build and push Docker images
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v4
         with:
           context: ${{ inputs.context }}
           push: true
           build-args: ${{ inputs.build-args }}
+          target: ${{ inputs.target }}
+          platforms: ${{ inputs.platforms }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
