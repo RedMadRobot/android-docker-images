@@ -13,6 +13,5 @@ jobs:
       context: android-emu
       title: Android Emulator image
       tags: |
-        ${{ matrix.version }}
-        ${{ matrix.version }}-{{date 'YYYYMMDD'}}
+        ${{ matrix.version }}-jdk11
       build-args: api_version=${{ matrix.version }}

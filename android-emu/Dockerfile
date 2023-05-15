@@ -1,6 +1,6 @@
 ARG api_version=30
 
-FROM ghcr.io/redmadrobot/android/android-sdk:${api_version}
+FROM ghcr.io/redmadrobot/android/android-sdk:${api_version}-jdk11
 
 ARG api_version
 ENV EMULATOR_NAME="EMU_${api_version}"
