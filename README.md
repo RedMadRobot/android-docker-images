@@ -17,7 +17,7 @@ All images are published in [GitHub Container Registry][ghcr].
 >
 > ```kotlin
 > android {
->     buildToolsVersion = "34.0.0-rc3"
+>     buildToolsVersion = "34.0.0"
 >     compileSdk = [x]
 > }
 > ```
@@ -32,8 +32,8 @@ Base Android image. All other android images are built on top of this image.
 **Packages:**
 
 - sdkmanager:
-    - cmdline-tools **9.0**
-    - build-tools **34.0.0-rc3**
+    - cmdline-tools **12.0**
+    - build-tools **34.0.0**
     - platform-tools **34.0.1**
 - python3
 - git
@@ -55,6 +55,7 @@ It should match your `compileSdk` in project build script.
 
 **Tags:**
 
+- `34` (Android 14)
 - `33` (Android 13)
 - `32` (Android 12L)
 - `31` (Android 12)
