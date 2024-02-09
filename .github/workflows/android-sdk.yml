@@ -46,7 +46,7 @@ jobs:
     needs: [ android-sdk-base, env ]
     strategy:
       matrix:
-        sdk: [ 30, 31, 32, 33 ]
+        sdk: [ 30, 31, 32, 33, 34 ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}

@@ -10,7 +10,7 @@ FROM eclipse-temurin:17-jdk-jammy AS base
 # Specify build tools version.
 # Use the latest available version by default.
 # https://developer.android.com/tools/releases/build-tools
-ARG build_tools="34.0.0-rc3"
+ARG build_tools="34.0.0"
 ENV ANDROID_BUILD_TOOLS_VERSION=$build_tools
 
 # Define Android environment variables
@@ -46,8 +46,8 @@ EOF
 
 # Commandline Tools revisions: https://developer.android.com/studio#command-line-tools-only
 # NOTE: Remember to update cmdline-tools-package.xml on commandlinetools update.
-ARG commandlinetools_url=https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
-ARG commandlinetools_sha256=bd1aa17c7ef10066949c88dc6c9c8d536be27f992a1f3b5a584f9bd2ba5646a0
+ARG commandlinetools_url=https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+ARG commandlinetools_sha256=2d2d50857e4eb553af5a6dc3ad507a17adf43d115264b1afc116f95c92e5e258
 
 WORKDIR $ANDROID_HOME
 RUN <<EOF
