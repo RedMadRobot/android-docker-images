@@ -3,7 +3,8 @@
 Set of docker images used by red_mad_robot Android team.
 All images are published in [GitHub Container Registry][ghcr].
 
-> **Note**  
+> [!Note]
+>
 > All images versioned using prefix with date when this image was built `[tag]-YYYYMMDD`.
 > It is recommended to use image tags with date prefix to keep build stable and to not break it on images updates.
 > All changes are listed in [CHANGELOG](CHANGELOG.md).
@@ -12,8 +13,9 @@ All images are published in [GitHub Container Registry][ghcr].
 
 ## android-sdk
 
-> **Note**  
-> You should always align build-tools and compile SDK in your project to match versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
+> [!Note]
+>
+> You should always align build-tools and compile SDK in your project to match the versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
 >
 > ```kotlin
 > android {
@@ -34,7 +36,7 @@ Base Android image. All other android images are built on top of this image.
 - sdkmanager:
     - cmdline-tools **12.0**
     - build-tools **34.0.0**
-    - platform-tools **34.0.1**
+    - platform-tools **35.0.0**
 - python3
 - git
 - zip, unzip
@@ -122,7 +124,9 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 ## Experimental images
 
-> :warning: Use these images at your own risk.
+> [!Warning]
+>
+> Use these images at your own risk.
 
 ### android-emu:[x]
 
@@ -157,7 +161,7 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 ## Images building
 
-Images are meant to be built using [BuildKit] and [buildx] as it require [Dockerfile frontend 1.4+][dockerfile-frontend].
+Images use [Dockerfile frontend 1.4+][dockerfile-frontend] so they are meant to be built using [BuildKit] and [buildx].
 
 If you want to build multi-platform images it is recommended to [enable containerd image store][containerd].
 Without this option you will not be able to publish images to local store.
