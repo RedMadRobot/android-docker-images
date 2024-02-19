@@ -4,7 +4,7 @@ on: workflow_dispatch
 env:
   # Look for NDK versions here:
   #  https://developer.android.com/ndk/downloads
-  NDK: 25.1.8937393
+  NDK: 26.2.11394342
   # Images path and name
   IMAGE_NAME: android-sdk
   IMAGE_PATH: ghcr.io/redmadrobot/android/android-sdk

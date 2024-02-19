@@ -81,25 +81,35 @@ It should match your `compileSdk` in project build script.
 Where `[x]` is SDK version and `[y]` is NDK version (optionally).
 
 **Base image**: `android-sdk:[x]` \
-**NDK version**: 25.1.8937393
+**NDK version**: 26.2.11394342
+
+Remember to specify NDK version in `android` block:
+
+```kotlin
+android {
+    ndkVersion = "26.2.11394342"
+}
+```
 
 **Tags:**
 
-- `33-ndk`, `33-ndk-25.1.8937393`
-- `32-ndk`, `32-ndk-25.1.8937393`
-- `31-ndk`, `31-ndk-25.1.8937393`
-- `30-ndk`, `30-ndk-25.1.8937393`
+- `34-ndk`, `33-ndk-26.2.11394342`
+- `33-ndk`, `33-ndk-26.2.11394342`
+- `32-ndk`, `32-ndk-26.2.11394342`
+- `31-ndk`, `31-ndk-26.2.11394342`
+- `30-ndk`, `30-ndk-26.2.11394342`
 
 <details>
 <summary>Deprecated tags</summary>
 
     - 33-jdk11-ndk, 33-jdk11-ndk-25.1.8937393
+    - 33-ndk-25.1.8937393
     - 32-jdk11-ndk, 32-jdk11-ndk-25.1.8937393
-    - 32-ndk-22.1.7171670
+    - 32-ndk-25.1.8937393, 32-ndk-22.1.7171670
     - 31-jdk11-ndk, 31-jdk11-ndk-25.1.8937393
-    - 31-ndk-22.1.7171670
+    - 31-ndk-25.1.8937393, 31-ndk-22.1.7171670
     - 30-jdk11-ndk, 30-jdk11-ndk-25.1.8937393
-    - 30-ndk-22.1.7171670
+    - 30-ndk-25.1.8937393, 30-ndk-22.1.7171670
 
 </details>
 

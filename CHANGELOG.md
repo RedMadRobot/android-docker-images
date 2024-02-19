@@ -5,6 +5,7 @@
 - :exclamation: Add support for Android SDK 34
 - :exclamation: Update build-tools `34.0.0-rc3`  → `34.0.0`
 - Update commadlinetools `9.0` → `14.0`
+- Update NDK `25.1.8937393` → `26.2.11394342`
 - Publish images for `linux/arm64` platform
 - Add sha256sum check for downloaded commandlinetools
 - Declare environment variable `ANDROID_USER_HOME = $HOME/.android`
