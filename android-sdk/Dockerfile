@@ -5,6 +5,7 @@
 ARG base_image="base"
 ARG sdk_image="sdk"
 
+
 FROM eclipse-temurin:17-jdk-jammy AS base
 
 # Specify build tools version.
@@ -79,6 +80,7 @@ COPY cmdline-tools-package.xml "cmdline-tools/latest/package.xml"
 
 WORKDIR $HOME
 
+
 FROM $base_image AS sdk
 
 ARG sdk
@@ -92,6 +94,7 @@ RUN <<EOF
   yes | sdkmanager "platforms;android-$ANDROID_COMPILE_SDK"
   rm -rf "$ANDROID_USER_HOME/cache"
 EOF
+
 
 FROM $sdk_image AS ndk
 
