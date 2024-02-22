@@ -60,16 +60,14 @@ It should match your `compileSdk` in project build script.
 - `34` (Android 14)
 - `33` (Android 13)
 - `32` (Android 12L)
-- `31` (Android 12)
-- `30` (Android 11)
 
 <details>
 <summary>Deprecated tags</summary>
 
     - 33-jdk11
     - 32-jdk11
-    - 31-jdk11
-    - 30-jdk11
+    - 31, 31-jdk11
+    - 30, 30-jdk11
 
 </details>
 
@@ -96,8 +94,6 @@ android {
 - `34-ndk`, `33-ndk-26.2.11394342`
 - `33-ndk`, `33-ndk-26.2.11394342`
 - `32-ndk`, `32-ndk-26.2.11394342`
-- `31-ndk`, `31-ndk-26.2.11394342`
-- `30-ndk`, `30-ndk-26.2.11394342`
 
 <details>
 <summary>Deprecated tags</summary>
@@ -107,9 +103,9 @@ android {
     - 32-jdk11-ndk, 32-jdk11-ndk-25.1.8937393
     - 32-ndk-25.1.8937393, 32-ndk-22.1.7171670
     - 31-jdk11-ndk, 31-jdk11-ndk-25.1.8937393
-    - 31-ndk-25.1.8937393, 31-ndk-22.1.7171670
+    - 31-ndk, 31-ndk-25.1.8937393, 31-ndk-22.1.7171670
     - 30-jdk11-ndk, 30-jdk11-ndk-25.1.8937393
-    - 30-ndk-25.1.8937393, 30-ndk-22.1.7171670
+    - 30-ndk, 30-ndk-25.1.8937393, 30-ndk-22.1.7171670
 
 </details>
 

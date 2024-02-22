@@ -20,7 +20,7 @@ jobs:
       image-name: ${{ steps.env.outputs.image-name }}
       image-path: ${{ steps.env.outputs.image-path }}
     steps:
-      - name: Save env variable to outputs
+      - name: Save env variables to outputs
         id: env
         run: |
           echo "ndk=$NDK" >> $GITHUB_OUTPUT
@@ -46,7 +46,7 @@ jobs:
     needs: [ android-sdk-base, env ]
     strategy:
       matrix:
-        sdk: [ 30, 31, 32, 33, 34 ]
+        sdk: [ 32, 33, 34 ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}
@@ -65,7 +65,7 @@ jobs:
     needs: [ android-sdk, env ]
     strategy:
       matrix:
-        sdk: [ 30, 31, 32, 33 ]
+        sdk: [ 32, 33, 34 ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}
