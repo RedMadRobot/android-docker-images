@@ -31,13 +31,14 @@ All images are published in [GitHub Container Registry][ghcr].
 Base Android image. All other android images are built on top of this image.
 
 **Base image**: `eclipse-temurin:17-jdk-jammy` \
+**Platforms:** `linux/amd64`, `linux/arm64` \
 **Packages:**
 
 - sdkmanager:
     - cmdline-tools **12.0**
     - build-tools **34.0.0**
     - platform-tools **35.0.0**
-- python3
+- python3 **3.10**
 - git
 - zip, unzip
 
@@ -115,18 +116,26 @@ android {
 
 Ruby image with some additions to work with Fastlane and Danger.
 
-**Base image:** `ruby:[x]-slim-bullseye` \
+**Base image:** `ruby:[x]-slim-bookworm` \
+**Platforms:** `linux/amd64` \
 **Packages:**
 
-- Bundler
-- Firebase CLI
+- Bundler **2.5.6**
+- Firebase CLI **13.3.1**
 
 **Tags:**
 
-- `3.2`, `latest`
+- `3.3`, `latest`
+- `3.2`
 - `3.1`
-- `3.0`
-- `2.7`
+
+<details>
+<summary>Deprecated tags</summary>
+
+    - 3.0
+    - 2.7
+
+</details>
 
 ## Experimental images
 

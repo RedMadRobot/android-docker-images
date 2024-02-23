@@ -1,7 +1,5 @@
 ARG version
-FROM ruby:${version}-slim-bullseye
-
-ENV FL_GMAIL_USERNAME=ci-android@redmadrobot.com
+FROM ruby:${version}-slim-bookworm
 
 # Install needed tools
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends \
@@ -18,3 +16,5 @@ RUN gem install bundler
 # Install firebase-cli
 RUN curl -Lo /usr/local/bin/firebase https://firebase.tools/bin/linux/latest && \
     chmod +x /usr/local/bin/firebase
+
+CMD ["bash"]

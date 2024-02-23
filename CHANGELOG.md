@@ -2,7 +2,7 @@
 
 ### android-sdk
 
-- :exclamation: Add support for Android SDK 34
+- :exclamation: Add image for Android SDK 34
 - :exclamation: SDK 30 and 31 images archived and will not be updated anymore
 - Update build-tools `34.0.0-rc3`  → `34.0.0`
 - Update commadlinetools `9.0` → `14.0`
@@ -13,6 +13,13 @@
 - Do not set `DEBIAN_FRONTEND` variable
 - Remove sdkmanager cache from images
 - Do not install i386 libraries for 64-bit machines
+
+### ruby
+
+- :exclamation: Environment variable `FL_GMAIL_USERNAME` removed from the image
+- :exclamation: Ruby 2.7 and 3.0 images archived and will not be updated anymore
+- :exclamation: Base image changed from `bullseye` (Debian 11) to `bookworm` (Debian 12). 
+- Add ruby 3.2 image
 
 ## [2023.04.19]
 
