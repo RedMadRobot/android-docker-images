@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2024.02.23]
+
 ### android-sdk
 
 - :exclamation: Add image for Android SDK 34
@@ -53,5 +55,6 @@
 - Add ruby 3.2 image
 - Remove redundant environment variables
 
-[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2023.04.19..main
+[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2024.02.23..main
+[2024.02.23]: https://github.com/RedMadRobot/android-docker-images/compare/2023.04.19..2024.02.23
 [2023.04.19]: https://github.com/RedMadRobot/android-docker-images/compare/2023.01.16..2023.04.19
