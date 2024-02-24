@@ -56,8 +56,9 @@ jobs:
       tags: |
         ${{ matrix.sdk }}
         ${{ matrix.sdk }}-{{date 'YYYYMMDD'}}
+      build-contexts: |
+        base=docker-image://${{ needs.env.outputs.image-path }}:base
       build-args: |
-        base_image=${{ needs.env.outputs.image-path }}:base
         sdk=${{ matrix.sdk }}
 
   android-sdk-ndk:
@@ -76,6 +77,7 @@ jobs:
         ${{ matrix.sdk }}-ndk
         ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}
         ${{ matrix.sdk }}-ndk-${{ needs.env.outputs.ndk }}-{{date 'YYYYMMDD'}}
+      build-contexts: |
+        sdk=docker-image://${{ needs.env.outputs.image-path }}:${{ matrix.sdk }}
       build-args: |
-        sdk_image=${{ needs.env.outputs.image-path }}:${{ matrix.sdk }}
         ndk=${{ needs.env.outputs.ndk }}
