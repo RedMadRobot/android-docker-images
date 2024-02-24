@@ -33,7 +33,6 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}
-      context: android-sdk
       target: base
       platforms: linux/amd64,linux/arm64
       title: Android SDK base image

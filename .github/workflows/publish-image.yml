@@ -11,7 +11,6 @@ on:
         description: 'Location of build files'
         required: false
         type: string
-        default: '-'
       title:
         description: 'Human-readable image title'
         required: true
@@ -78,7 +77,7 @@ jobs:
       - name: Build and push Docker images
         uses: docker/build-push-action@v5
         with:
-          context: ${{ inputs.context }}
+          context: ${{ inputs.context != null && inputs.context || inputs.image-name }}
           push: true
           build-args: ${{ inputs.build-args }}
           build-contexts: ${{ inputs.build-contexts }}

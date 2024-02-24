@@ -10,7 +10,6 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: danger-kotlin
-      context: danger-kotlin
       title: Danger Kotlin image
       tags: |
         ${{ matrix.version }}

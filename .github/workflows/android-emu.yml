@@ -10,7 +10,6 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: android-emu
-      context: android-emu
       title: Android Emulator image
       tags: |
         ${{ matrix.version }}
