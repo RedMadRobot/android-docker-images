@@ -162,6 +162,31 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 - [Allurectl][allurectl] - command line wrapper of Allure TestOps' API allowing you to upload the test results in real time from a build job, and managing entities on Allure TestOps side (test cases, launches, projects).
 
+### android-emu-atd
+
+> `ghcr.io/redmadrobot/android/android-emu-atd:34`
+
+**Base image**: `android-sdk:34` \
+**Platforms:** `linux/amd64`
+
+Image for instrumented (UI) tests run via **Gradle Managed Devices (GMD)**.
+Unlike `android-emu` (manual model: baked AVD + snapshot + `start-emulator`, `google_apis`,
+one API per image), this image does **not** bake an AVD or snapshot — the GMD Gradle task
+manages the emulator lifecycle. It only adds what stock `android-sdk` lacks:
+
+- emulator runtime shared libraries (`libX11` etc. — the launcher fails to start without them);
+- the `emulator` package;
+- AOSP **ATD** system images (headless-optimized, no Google APIs):
+  `system-images;android-30;aosp_atd;x86` and `system-images;android-34;aosp_atd;x86_64`.
+
+A single image carries both API levels so it serves the whole GMD matrix from one `image:`.
+The API levels must match `apiLevel` in the consuming project's Gradle Managed Devices config.
+
+> [!Note]
+>
+> Hardware acceleration (`/dev/kvm`) is **not** part of the image — it is a device passthrough
+> configured on the runner. The emulator needs it at runtime.
+
 ### danger-kotlin:[x]
 
 > `ghcr.io/redmadrobot/android/danger-kotlin:1.0.0` \
