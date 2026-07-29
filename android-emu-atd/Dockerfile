@@ -19,6 +19,7 @@ FROM ghcr.io/redmadrobot/android/android-sdk:34
 ARG DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
+  set -eu
   # Рантайм-либы эмулятора: без libX11.so.6 лаунчер падает на старте (error loading shared libraries).
   apt-get update --yes
   apt-get install --yes --no-install-recommends \
@@ -29,6 +30,7 @@ RUN <<EOF
 EOF
 
 RUN <<EOF
+  set -eu
   # Пакет emulator + ATD system-images под матрицу GMD. Лицензии принимаются здесь же.
   yes | sdkmanager --licenses > /dev/null
   yes | sdkmanager \
@@ -39,6 +41,7 @@ RUN <<EOF
 EOF
 
 RUN <<EOF
+  set -eu
   # Build-time sanity: лаунчер линкуется без missing-libs.
   # (accel-check требует /dev/kvm в рантайме — здесь проверяем только целостность либ.)
   "$ANDROID_HOME/emulator/emulator" -version | head -1
