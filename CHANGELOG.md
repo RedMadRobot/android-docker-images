@@ -1,5 +1,9 @@
 ## [Unreleased]
 
+### android-emu-atd
+
+- Add experimental `android-emu-atd:34` image — Android emulator for instrumented tests via Gradle Managed Devices (AOSP ATD system images API 30 + 34, emulator runtime libs). Unlike `android-emu`, does not bake an AVD/snapshot; GMD manages the emulator lifecycle.
+
 ## [2024.02.24]
 
 ### android-sdk
