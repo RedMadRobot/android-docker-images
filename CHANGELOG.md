@@ -1,8 +1,15 @@
 ## [Unreleased]
 
+### android-sdk
+
+- Add image for Android SDK 36 (Android 16): `android-sdk:36`
+- Add base image variant `base-36.0.0` with build-tools `36.0.0` — required by Android Gradle Plugin for `compileSdk = 36`. `android-sdk:36` is built on top of it
+- Existing images are not affected: `base` and `32`, `33`, `34` (including `-ndk` tags) keep build-tools `34.0.0`
+
 ### android-emu-atd
 
-- Add experimental `android-emu-atd:34` image — Android emulator for instrumented tests via Gradle Managed Devices (AOSP ATD system images API 30 + 34, emulator runtime libs). Unlike `android-emu`, does not bake an AVD/snapshot; GMD manages the emulator lifecycle.
+- Add experimental `android-emu-atd:36` image — Android emulator for instrumented tests via Gradle Managed Devices (AOSP ATD system images API 30 + 34, emulator runtime libs). Unlike `android-emu`, does not bake an AVD/snapshot; GMD manages the emulator lifecycle
+- :exclamation: Base image `android-sdk:34` → `android-sdk:36`. The published tag is renamed `34` → `36` accordingly: the tag denotes the base `android-sdk` version, not an ATD API level. Bundled ATD system images are unchanged (API 30 + 34)
 
 ## [2024.02.24]
 

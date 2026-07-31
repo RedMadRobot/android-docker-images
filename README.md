@@ -17,18 +17,23 @@ All images are published in [GitHub Container Registry][ghcr].
 >
 > You should always align build-tools and compile SDK in your project to match the versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
 >
+> The build-tools version depends on the image tag: `android-sdk:36` ships build-tools **36.0.0**, `android-sdk:34`, `:33` and `:32` ship build-tools **34.0.0**.
+>
 > ```kotlin
 > android {
->     buildToolsVersion = "34.0.0"
+>     // 36.0.0 for android-sdk:36, 34.0.0 for android-sdk:34, :33 and :32
+>     buildToolsVersion = "36.0.0"
 >     compileSdk = [x]
 > }
 > ```
 
 ### android-sdk:base
 
-> `ghcr.io/redmadrobot/android/android-sdk:base`
+> `ghcr.io/redmadrobot/android/android-sdk:base` \
+> `ghcr.io/redmadrobot/android/android-sdk:base-36.0.0`
 
 Base Android image. All other android images are built on top of this image.
+There are two variants, they differ only in the build-tools version.
 
 **Base image**: `eclipse-temurin:17-jdk-jammy` \
 **Platforms:** `linux/amd64`, `linux/arm64` \
@@ -36,11 +41,16 @@ Base Android image. All other android images are built on top of this image.
 
 - sdkmanager:
     - cmdline-tools **12.0**
-    - build-tools **34.0.0**
-    - platform-tools **35.0.0**
+    - build-tools **34.0.0** in `base`, **36.0.0** in `base-36.0.0`
+    - platform-tools — not pinned, an image gets the release current at its build time (**35.0.0** in the published `base`)
 - python3 **3.10**
 - git
 - zip, unzip
+
+**Tags:**
+
+- `base` — build-tools **34.0.0**, used by `android-sdk:34`, `:33`, `:32`
+- `base-36.0.0` — build-tools **36.0.0**, used by `android-sdk:36`
 
 <details>
 <summary>Deprecated tags</summary>
@@ -58,6 +68,7 @@ It should match your `compileSdk` in project build script.
 
 **Tags:**
 
+- `36` (Android 16) — built on `base-36.0.0`, build-tools **36.0.0**
 - `34` (Android 14)
 - `33` (Android 13)
 - `32` (Android 12L)
@@ -164,10 +175,15 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 ### android-emu-atd
 
-> `ghcr.io/redmadrobot/android/android-emu-atd:34`
+> `ghcr.io/redmadrobot/android/android-emu-atd:36`
 
-**Base image**: `android-sdk:34` \
+**Base image**: `android-sdk:36` \
 **Platforms:** `linux/amd64`
+
+> [!Note]
+>
+> The image tag is the version of the base `android-sdk` image, **not** an ATD API level.
+> `android-emu-atd:36` is built on `android-sdk:36` and carries ATD system images for API **30** and **34**.
 
 Image for instrumented (UI) tests run via **Gradle Managed Devices (GMD)**.
 Unlike `android-emu` (manual model: baked AVD + snapshot + `start-emulator`, `google_apis`,
