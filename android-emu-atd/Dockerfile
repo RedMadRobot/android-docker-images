@@ -5,7 +5,7 @@
 # В отличие от experimental `android-emu` (ручная модель: запечённый AVD + snapshot +
 # start-emulator, google_apis, один API на образ) — этот образ НЕ бейкает AVD/snapshot:
 # lifecycle эмулятора управляет сама GMD-задача (`:app:ciAtdDebugAndroidTest`). Образ лишь
-# докладывает то, чего нет в android-sdk:34 — рантайм-либы, пакет `emulator` и ATD-образы.
+# докладывает то, чего нет в android-sdk:36 — рантайм-либы, пакет `emulator` и ATD-образы.
 # Один образ несёт ОБА уровня матрицы (30 x86 + 34 x86_64), чтобы обслуживать её из одного `image:`.
 #
 # ATD (Automated Test Device) — headless-оптимизированные образы без Google APIs.
@@ -14,7 +14,7 @@
 # Список system-images должен совпадать с apiLevel в проекте
 # (app/build.gradle.kts → testOptions.managedDevices: ciAtd=30, ciAtd34=34).
 
-FROM ghcr.io/redmadrobot/android/android-sdk:34
+FROM ghcr.io/redmadrobot/android/android-sdk:36
 
 ARG DEBIAN_FRONTEND=noninteractive
 

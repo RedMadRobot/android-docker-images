@@ -1,6 +1,7 @@
 # Кладётся в android-docker-images как .github/workflows/android-emu-atd.yml
 # Использует их reusable publish-image.yml (context по умолчанию = image-name → ./android-emu-atd/).
 # platforms=linux/amd64: эмулятор и ATD-образы — x86/x86_64, arm64 не нужен.
+# Тег образа = версия базового android-sdk (36), а не API уровень ATD-образов (внутри 30 + 34).
 name: Android Emulator ATD Image
 on: workflow_dispatch
 
@@ -10,8 +11,8 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: android-emu-atd
-      title: Android Emulator ATD image (GMD, API 30 + 34)
+      title: Android Emulator ATD image (GMD, base android-sdk:36, ATD API 30 + 34)
       platforms: linux/amd64
       tags: |
-        34
-        34-{{date 'YYYYMMDD'}}
+        36
+        36-{{date 'YYYYMMDD'}}
