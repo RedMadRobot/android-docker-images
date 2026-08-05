@@ -1,7 +1,6 @@
-# Кладётся в android-docker-images как .github/workflows/android-emu-atd.yml
-# Использует их reusable publish-image.yml (context по умолчанию = image-name → ./android-emu-atd/).
-# platforms=linux/amd64: эмулятор и ATD-образы — x86/x86_64, arm64 не нужен.
-# Тег образа = версия базового android-sdk (36), а не API уровень ATD-образов (внутри 30 + 34).
+# platforms=linux/amd64: the emulator and ATD system images are x86/x86_64, arm64 is not needed.
+# The image tag is the base android-sdk version (36), not the API level of the bundled
+# ATD system images (30 + 34).
 name: Android Emulator ATD Image
 on: workflow_dispatch
 

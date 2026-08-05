@@ -7,11 +7,11 @@
           <list>
             <DockerEnvVarImpl>
               <option name="name" value="sdk" />
-              <option name="value" value="33" />
+              <option name="value" value="36" />
             </DockerEnvVarImpl>
             <DockerEnvVarImpl>
               <option name="name" value="ndk" />
-              <option name="value" value="25.1.8937393" />
+              <option name="value" value="26.2.11394342" />
             </DockerEnvVarImpl>
           </list>
         </option>

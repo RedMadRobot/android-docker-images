@@ -17,23 +17,26 @@ All images are published in [GitHub Container Registry][ghcr].
 >
 > You should always align build-tools and compile SDK in your project to match the versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
 >
-> The build-tools version depends on the image tag: `android-sdk:36` ships build-tools **36.0.0**, `android-sdk:34`, `:33` and `:32` ship build-tools **34.0.0**.
+> Tags rebuilt from this update onwards (`34`, `35`, `36`) ship the same build-tools **36.0.0** — newer build-tools can build for lower compile SDK levels. Archived `32`/`33` tags and earlier `34` dated tags keep build-tools **34.0.0**.
+>
+> Every image exports the version it ships as `ANDROID_BUILD_TOOLS_VERSION`, so a project can follow the image it runs on instead of hardcoding a version. The fallback keeps builds outside the image working:
 >
 > ```kotlin
 > android {
->     // 36.0.0 for android-sdk:36, 34.0.0 for android-sdk:34, :33 and :32
->     buildToolsVersion = "36.0.0"
+>     buildToolsVersion = System.getenv("ANDROID_BUILD_TOOLS_VERSION") ?: "36.0.0"
 >     compileSdk = [x]
 > }
 > ```
+>
+> Keep in mind that Android Gradle Plugin ignores `buildToolsVersion` below its own minimum and downloads its default version instead. AGP 9.2.x defaults to build-tools **36.0.0**.
+>
+> If your project does not declare `buildToolsVersion` at all, add it — AGP below 9.2 defaults to a version that is no longer in the image and downloads it on every build.
 
 ### android-sdk:base
 
-> `ghcr.io/redmadrobot/android/android-sdk:base` \
-> `ghcr.io/redmadrobot/android/android-sdk:base-36.0.0`
+> `ghcr.io/redmadrobot/android/android-sdk:base`
 
 Base Android image. All other android images are built on top of this image.
-There are two variants, they differ only in the build-tools version.
 
 **Base image**: `eclipse-temurin:17-jdk-jammy` \
 **Platforms:** `linux/amd64`, `linux/arm64` \
@@ -41,20 +44,16 @@ There are two variants, they differ only in the build-tools version.
 
 - sdkmanager:
     - cmdline-tools **12.0**
-    - build-tools **34.0.0** in `base`, **36.0.0** in `base-36.0.0`
-    - platform-tools — not pinned, an image gets the release current at its build time (**35.0.0** in the published `base`)
+    - build-tools **36.0.0**
+    - platform-tools — not pinned, an image gets the release current at its build time
 - python3 **3.10**
 - git
 - zip, unzip
 
-**Tags:**
-
-- `base` — build-tools **34.0.0**, used by `android-sdk:34`, `:33`, `:32`
-- `base-36.0.0` — build-tools **36.0.0**, used by `android-sdk:36`
-
 <details>
 <summary>Deprecated tags</summary>
 
+    base-36.0.0
     base-jdk11
 
 </details>
@@ -68,16 +67,15 @@ It should match your `compileSdk` in project build script.
 
 **Tags:**
 
-- `36` (Android 16) — built on `base-36.0.0`, build-tools **36.0.0**
+- `36` (Android 16)
+- `35` (Android 15)
 - `34` (Android 14)
-- `33` (Android 13)
-- `32` (Android 12L)
 
 <details>
 <summary>Deprecated tags</summary>
 
-    - 33-jdk11
-    - 32-jdk11
+    - 33, 33-jdk11
+    - 32, 32-jdk11
     - 31, 31-jdk11
     - 30, 30-jdk11
 
@@ -103,13 +101,15 @@ android {
 
 **Tags:**
 
-- `34-ndk`, `33-ndk-26.2.11394342`
-- `33-ndk`, `33-ndk-26.2.11394342`
-- `32-ndk`, `32-ndk-26.2.11394342`
+- `36-ndk`, `36-ndk-26.2.11394342`
+- `35-ndk`, `35-ndk-26.2.11394342`
+- `34-ndk`, `34-ndk-26.2.11394342`
 
 <details>
 <summary>Deprecated tags</summary>
 
+    - 33-ndk, 33-ndk-26.2.11394342
+    - 32-ndk, 32-ndk-26.2.11394342
     - 33-jdk11-ndk, 33-jdk11-ndk-25.1.8937393
     - 33-ndk-25.1.8937393
     - 32-jdk11-ndk, 32-jdk11-ndk-25.1.8937393
