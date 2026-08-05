@@ -1,18 +1,19 @@
 # syntax=docker/dockerfile:1
 #
-# android-emu-atd — CI-образ для instrumented (UI) тестов через Gradle Managed Devices (GMD).
+# android-emu-atd — CI image for instrumented (UI) tests via Gradle Managed Devices (GMD).
 #
-# В отличие от experimental `android-emu` (ручная модель: запечённый AVD + snapshot +
-# start-emulator, google_apis, один API на образ) — этот образ НЕ бейкает AVD/snapshot:
-# lifecycle эмулятора управляет сама GMD-задача (`:app:ciAtdDebugAndroidTest`). Образ лишь
-# докладывает то, чего нет в android-sdk:36 — рантайм-либы, пакет `emulator` и ATD-образы.
-# Один образ несёт ОБА уровня матрицы (30 x86 + 34 x86_64), чтобы обслуживать её из одного `image:`.
+# Unlike the experimental `android-emu` image (manual model: baked AVD + snapshot +
+# start-emulator, google_apis, one API level per image), this image does NOT bake an
+# AVD/snapshot: the GMD task owns the emulator lifecycle. The image only adds what is
+# missing in android-sdk — emulator runtime libs, the `emulator` package and ATD system
+# images. A single image carries BOTH matrix levels (30 x86 + 34 x86_64), so a device
+# matrix can be served from one `image:`.
 #
-# ATD (Automated Test Device) — headless-оптимизированные образы без Google APIs.
-# /dev/kvm сюда не входит — это проброс устройства на раннере (тег `android`), не часть образа.
+# ATD (Automated Test Device) — system images optimized for headless runs, without Google APIs.
+# /dev/kvm is not part of the image: it is a device passed through on the runner.
 #
-# Список system-images должен совпадать с apiLevel в проекте
-# (app/build.gradle.kts → testOptions.managedDevices: ciAtd=30, ciAtd34=34).
+# The list of system images must match the apiLevel of the managed devices declared by
+# the consuming project (testOptions.managedDevices).
 
 FROM ghcr.io/redmadrobot/android/android-sdk:36
 
@@ -20,7 +21,8 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 RUN <<EOF
   set -eu
-  # Рантайм-либы эмулятора: без libX11.so.6 лаунчер падает на старте (error loading shared libraries).
+  # Emulator runtime libs: without libX11.so.6 the launcher fails at startup
+  # (error while loading shared libraries).
   apt-get update --yes
   apt-get install --yes --no-install-recommends \
     libx11-6 libx11-xcb1 libxcb1 libxext6 libxdamage1 libxfixes3 \
@@ -31,7 +33,7 @@ EOF
 
 RUN <<EOF
   set -eu
-  # Пакет emulator + ATD system-images под матрицу GMD. Лицензии принимаются здесь же.
+  # The `emulator` package and ATD system images for the GMD matrix. Licenses are accepted here too.
   yes | sdkmanager --licenses > /dev/null
   yes | sdkmanager \
     "emulator" \
@@ -42,8 +44,8 @@ EOF
 
 RUN <<EOF
   set -eu
-  # Build-time sanity: лаунчер линкуется без missing-libs.
-  # (accel-check требует /dev/kvm в рантайме — здесь проверяем только целостность либ.)
+  # Build-time sanity check: the launcher links without missing libs.
+  # (accel-check needs /dev/kvm at runtime, so only lib integrity is verified here.)
   "$ANDROID_HOME/emulator/emulator" -version | head -1
   if ldd "$ANDROID_HOME/emulator/emulator" | grep -q "not found"; then
     echo "ERROR: emulator has missing shared libraries" >&2
