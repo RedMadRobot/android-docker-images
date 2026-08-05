@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [2026.08.05]
+
 ### android-sdk
 
 - Add image for Android SDK 36 (Android 16): `android-sdk:36`, `android-sdk:36-ndk`
@@ -68,6 +70,7 @@
 - Add ruby 3.2 image
 - Remove redundant environment variables
 
-[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2024.02.24..main
+[unreleased]: https://github.com/RedMadRobot/android-docker-images/compare/2026.08.05..main
+[2026.08.05]: https://github.com/RedMadRobot/android-docker-images/compare/2024.02.24..2026.08.05
 [2024.02.24]: https://github.com/RedMadRobot/android-docker-images/compare/2023.04.19..2024.02.24
 [2023.04.19]: https://github.com/RedMadRobot/android-docker-images/compare/2023.01.16..2023.04.19
