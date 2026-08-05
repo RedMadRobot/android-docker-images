@@ -44,6 +44,7 @@ jobs:
     name: Publish Android SDK image
     needs: [ android-sdk-base, env ]
     strategy:
+      fail-fast: false
       matrix:
         sdk: [ 34, 35, 36 ]
     uses: ./.github/workflows/publish-image.yml
@@ -64,6 +65,7 @@ jobs:
     name: Publish Android SDK image with NDK
     needs: [ android-sdk, env ]
     strategy:
+      fail-fast: false
       matrix:
         sdk: [ 34, 35, 36 ]
     uses: ./.github/workflows/publish-image.yml

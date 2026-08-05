@@ -17,16 +17,20 @@ All images are published in [GitHub Container Registry][ghcr].
 >
 > You should always align build-tools and compile SDK in your project to match the versions used in image, otherwise Android Gradle Plugin will download `build-tools` and `platform` packages in each CI build.
 >
-> All `android-sdk` tags ship the same build-tools **36.0.0** — newer build-tools can build for lower compile SDK levels.
+> Tags rebuilt from this update onwards (`34`, `35`, `36`) ship the same build-tools **36.0.0** — newer build-tools can build for lower compile SDK levels. Archived `32`/`33` tags and earlier `34` dated tags keep build-tools **34.0.0**.
+>
+> Every image exports the version it ships as `ANDROID_BUILD_TOOLS_VERSION`, so a project can follow the image it runs on instead of hardcoding a version. The fallback keeps builds outside the image working:
 >
 > ```kotlin
 > android {
->     buildToolsVersion = "36.0.0"
+>     buildToolsVersion = System.getenv("ANDROID_BUILD_TOOLS_VERSION") ?: "36.0.0"
 >     compileSdk = [x]
 > }
 > ```
 >
 > Keep in mind that Android Gradle Plugin ignores `buildToolsVersion` below its own minimum and downloads its default version instead. AGP 9.2.x defaults to build-tools **36.0.0**.
+>
+> If your project does not declare `buildToolsVersion` at all, add it — AGP below 9.2 defaults to a version that is no longer in the image and downloads it on every build.
 
 ### android-sdk:base
 
@@ -97,13 +101,15 @@ android {
 
 **Tags:**
 
-- `34-ndk`, `33-ndk-26.2.11394342`
-- `33-ndk`, `33-ndk-26.2.11394342`
-- `32-ndk`, `32-ndk-26.2.11394342`
+- `36-ndk`, `36-ndk-26.2.11394342`
+- `35-ndk`, `35-ndk-26.2.11394342`
+- `34-ndk`, `34-ndk-26.2.11394342`
 
 <details>
 <summary>Deprecated tags</summary>
 
+    - 33-ndk, 33-ndk-26.2.11394342
+    - 32-ndk, 32-ndk-26.2.11394342
     - 33-jdk11-ndk, 33-jdk11-ndk-25.1.8937393
     - 33-ndk-25.1.8937393
     - 32-jdk11-ndk, 32-jdk11-ndk-25.1.8937393
