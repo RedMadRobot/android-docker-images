@@ -10,7 +10,8 @@
 # matrix can be served from one `image:`.
 #
 # ATD (Automated Test Device) — system images optimized for headless runs, without Google APIs.
-# /dev/kvm is not part of the image: it is a device passed through on the runner.
+# /dev/kvm is not part of the image: the runner must pass the device through
+# (on red_mad_robot CI — the runner tagged `android`).
 #
 # The list of system images must match the apiLevel of the managed devices declared by
 # the consuming project (testOptions.managedDevices).
