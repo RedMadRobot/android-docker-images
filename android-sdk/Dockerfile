@@ -3,9 +3,12 @@
 FROM eclipse-temurin:17-jdk-jammy AS base
 
 # Specify build tools version.
-# Use the latest available version by default.
+# Newer build tools can build for lower compile SDK levels, so a single version serves all
+# android-sdk tags. Keep it in sync with the default build tools version of the Android Gradle
+# Plugin used by consumers: AGP ignores anything below its minimum and downloads its own default
+# on every build. AGP 9.2.x defaults to 36.0.0.
 # https://developer.android.com/tools/releases/build-tools
-ARG build_tools="34.0.0"
+ARG build_tools="36.0.0"
 ENV ANDROID_BUILD_TOOLS_VERSION=$build_tools
 
 # Define Android environment variables

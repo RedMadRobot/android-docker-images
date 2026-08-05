@@ -3,8 +3,10 @@
 ### android-sdk
 
 - Add image for Android SDK 36 (Android 16): `android-sdk:36`
-- Add base image variant `base-36.0.0` with build-tools `36.0.0` — required by Android Gradle Plugin for `compileSdk = 36`. `android-sdk:36` is built on top of it
-- Existing images are not affected: `base` and `32`, `33`, `34` (including `-ndk` tags) keep build-tools `34.0.0`
+- Add image for Android SDK 35 (Android 15): `android-sdk:35`
+- :exclamation: Update build-tools `34.0.0` → `36.0.0` in `base`. All `android-sdk` tags now ship the same build-tools version — newer build-tools can build for lower compile SDK levels. Android Gradle Plugin 9.2.x requires `36.0.0` and downloads it on every build otherwise
+- :exclamation: SDK 32 and 33 images archived and will not be updated anymore. Only the three latest SDK versions are published
+- Remove base image variant `base-36.0.0` — superseded by the build-tools update in `base`
 
 ### android-emu-atd
 

@@ -45,7 +45,7 @@ jobs:
     needs: [ android-sdk-base, env ]
     strategy:
       matrix:
-        sdk: [ 32, 33, 34 ]
+        sdk: [ 34, 35, 36 ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}
@@ -65,7 +65,7 @@ jobs:
     needs: [ android-sdk, env ]
     strategy:
       matrix:
-        sdk: [ 32, 33, 34 ]
+        sdk: [ 34, 35, 36 ]
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: ${{ needs.env.outputs.image-name }}
@@ -80,39 +80,3 @@ jobs:
         sdk=docker-image://${{ needs.env.outputs.image-path }}:${{ matrix.sdk }}
       build-args: |
         ndk=${{ needs.env.outputs.ndk }}
-
-  # Android SDK 36 pipeline.
-  # Android Gradle Plugin requires build-tools 36.0.0+ for compileSdk 36, so this pipeline
-  # builds its own base image variant with build-tools 36.0.0 instead of the default 34.0.0.
-  # Images published by the jobs above keep build-tools 34.0.0 and are not affected.
-  android-sdk-base-36:
-    name: Publish Android SDK base image with build-tools 36.0.0
-    needs: env
-    uses: ./.github/workflows/publish-image.yml
-    with:
-      image-name: ${{ needs.env.outputs.image-name }}
-      target: base
-      platforms: linux/amd64,linux/arm64
-      title: Android SDK base image with build-tools 36.0.0
-      tags: |
-        base-36.0.0
-        base-36.0.0-{{date 'YYYYMMDD'}}
-      build-args: |
-        build_tools=36.0.0
-
-  android-sdk-36:
-    name: Publish Android SDK 36 image
-    needs: [ android-sdk-base-36, env ]
-    uses: ./.github/workflows/publish-image.yml
-    with:
-      image-name: ${{ needs.env.outputs.image-name }}
-      target: sdk
-      platforms: linux/amd64,linux/arm64
-      title: Android SDK 36 image
-      tags: |
-        36
-        36-{{date 'YYYYMMDD'}}
-      build-contexts: |
-        base=docker-image://${{ needs.env.outputs.image-path }}:base-36.0.0
-      build-args: |
-        sdk=36
