@@ -1,6 +1,6 @@
-# platforms=linux/amd64: the emulator and ATD system images are x86/x86_64, arm64 is not needed.
+# platforms=linux/amd64: the emulator and the system images are x86/x86_64, arm64 is not needed.
 # The image tag is the base android-sdk version (36), not the API level of the bundled
-# ATD system images (30 + 34).
+# system images (30, 31, 34, 37.0).
 name: Android Emulator ATD Image
 on: workflow_dispatch
 
@@ -10,7 +10,7 @@ jobs:
     uses: ./.github/workflows/publish-image.yml
     with:
       image-name: android-emu-atd
-      title: Android Emulator ATD image (GMD, base android-sdk:36, ATD API 30 + 34)
+      title: Android Emulator ATD image (GMD, base android-sdk:36, ATD API 30 + 31 + 34, google_apis API 37.0)
       platforms: linux/amd64
       tags: |
         36

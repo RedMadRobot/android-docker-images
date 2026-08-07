@@ -5,16 +5,19 @@
 # Unlike the experimental `android-emu` image (manual model: baked AVD + snapshot +
 # start-emulator, google_apis, one API level per image), this image does NOT bake an
 # AVD/snapshot: the GMD task owns the emulator lifecycle. The image only adds what is
-# missing in android-sdk — emulator runtime libs, the `emulator` package and ATD system
-# images. A single image carries BOTH matrix levels (30 x86 + 34 x86_64), so a device
+# missing in android-sdk — emulator runtime libs, the `emulator` package and the system
+# images. A single image carries EVERY matrix level (30, 31, 34, 37.0), so a device
 # matrix can be served from one `image:`.
 #
 # ATD (Automated Test Device) — system images optimized for headless runs, without Google APIs.
+# Google publishes ATD up to android-36 only, so API 37.0 falls back to a regular
+# `google_apis` image: bigger and not headless-optimized, but the only x86_64 option there.
 # /dev/kvm is not part of the image: the runner must pass the device through
 # (on red_mad_robot CI — the runner tagged `android`).
 #
-# The list of system images must match the apiLevel of the managed devices declared by
-# the consuming project (testOptions.managedDevices).
+# The list of system images must match both the apiLevel and the systemImageSource of the
+# managed devices declared by the consuming project (testOptions.managedDevices):
+# `aosp-atd` for the ATD levels, `google` for 37.0.
 
 FROM ghcr.io/redmadrobot/android/android-sdk:36
 
@@ -34,12 +37,16 @@ EOF
 
 RUN <<EOF
   set -eu
-  # The `emulator` package and ATD system images for the GMD matrix. Licenses are accepted here too.
+  # The `emulator` package and the system images for the GMD matrix. Licenses are accepted here too.
+  # Package ids are exact: API 31 has no 32-bit x86 ATD image (x86 ATD stops at API 30),
+  # and 37.0 keeps its minor version — there is no flat `android-37` in system-images.
   yes | sdkmanager --licenses > /dev/null
   yes | sdkmanager \
     "emulator" \
     "system-images;android-30;aosp_atd;x86" \
-    "system-images;android-34;aosp_atd;x86_64"
+    "system-images;android-31;aosp_atd;x86_64" \
+    "system-images;android-34;aosp_atd;x86_64" \
+    "system-images;android-37.0;google_apis;x86_64"
   rm -rf "$ANDROID_USER_HOME/cache"
 EOF
 
