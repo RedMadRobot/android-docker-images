@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### android-emu-atd
+
+- Bake two more system images into `android-emu-atd:36`: `system-images;android-31;aosp_atd;x86_64` and `system-images;android-37.0;google_apis;x86_64`. Gradle Managed Devices on API 31 and 37 no longer download a system image in every CI build. The already bundled API 30 and 34 ATD images are kept
+- API 37 uses a regular `google_apis` image because ATD is published up to `android-36` only — such a device needs `systemImageSource = "google"` in the managed devices config, while the ATD levels keep `"aosp-atd"`. It is also much larger than an ATD image, so the pull of `android-emu-atd:36` grows accordingly
+
 ## [2026.08.05]
 
 ### android-sdk

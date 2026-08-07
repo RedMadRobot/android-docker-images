@@ -182,8 +182,8 @@ Ruby image with some additions to work with Fastlane and Danger.
 
 > [!Note]
 >
-> The image tag is the version of the base `android-sdk` image, **not** an ATD API level.
-> `android-emu-atd:36` is built on `android-sdk:36` and carries ATD system images for API **30** and **34**.
+> The image tag is the version of the base `android-sdk` image, **not** an API level.
+> `android-emu-atd:36` is built on `android-sdk:36` and carries system images for API **30**, **31**, **34** and **37.0**.
 
 Image for instrumented (UI) tests run via **Gradle Managed Devices (GMD)**.
 Unlike `android-emu` (manual model: baked AVD + snapshot + `start-emulator`, `google_apis`,
@@ -192,11 +192,25 @@ manages the emulator lifecycle. It only adds what stock `android-sdk` lacks:
 
 - emulator runtime shared libraries (`libX11` etc. — the launcher fails to start without them);
 - the `emulator` package;
-- AOSP **ATD** system images (headless-optimized, no Google APIs):
-  `system-images;android-30;aosp_atd;x86` and `system-images;android-34;aosp_atd;x86_64`.
+- system images:
+    - AOSP **ATD** (headless-optimized, no Google APIs) — GMD `systemImageSource = "aosp-atd"`:
+      `system-images;android-30;aosp_atd;x86`, `system-images;android-31;aosp_atd;x86_64`,
+      `system-images;android-34;aosp_atd;x86_64`
+    - **Google APIs** — GMD `systemImageSource = "google"`:
+      `system-images;android-37.0;google_apis;x86_64`
 
-A single image carries both API levels so it serves the whole GMD matrix from one `image:`.
-The API levels must match `apiLevel` in the consuming project's Gradle Managed Devices config.
+A single image carries every API level so it serves the whole GMD matrix from one `image:`.
+
+> [!Note]
+>
+> Two quirks of the package ids above, both checked against `sdkmanager --list`:
+> API 31 has no 32-bit `x86` ATD image (`x86` ATD stops at API 30), and ATD is published up to
+> `android-36` only — so API 37 uses a regular, noticeably larger `google_apis` image.
+> Mind the minor version: there is no flat `android-37` in system images, only `android-37.0`.
+
+Both `apiLevel` **and** `systemImageSource` of every managed device in the consuming project must
+match one of the packages above. On a mismatch the Gradle Managed Devices task downloads its own
+system image on every build, which is exactly what baking them into the image avoids.
 
 > [!Note]
 >
