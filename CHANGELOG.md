@@ -10,6 +10,8 @@
 
 ### android-emu-atd
 
+- Bake two more system images into `android-emu-atd:36`: `system-images;android-31;aosp_atd;x86_64` and `system-images;android-37.0;google_apis;x86_64`. Gradle Managed Devices on API 31 and 37 no longer download a system image in every CI build. The already bundled API 30 and 34 ATD images are kept
+- API 37 uses a regular `google_apis` image because ATD is published up to `android-36` only — such a device needs `systemImageSource = "google"` in the managed devices config, while the ATD levels keep `"aosp-atd"`. It is also much larger than an ATD image, so the pull of `android-emu-atd:36` grows accordingly
 - Add experimental `android-emu-atd:36` image — Android emulator for instrumented tests via Gradle Managed Devices (AOSP ATD system images API 30 + 34, emulator runtime libs). Unlike `android-emu`, does not bake an AVD/snapshot; GMD manages the emulator lifecycle
 - :exclamation: Base image `android-sdk:34` → `android-sdk:36`. The published tag is renamed `34` → `36` accordingly: the tag denotes the base `android-sdk` version, not an ATD API level. Bundled ATD system images are unchanged (API 30 + 34)
 
